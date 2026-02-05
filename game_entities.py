@@ -19,6 +19,7 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2026 CSC111 Teaching Team
 """
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass

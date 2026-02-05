@@ -80,6 +80,7 @@ class AdventureGame:
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
         self.score = 0
+        self.current_inv = []
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -181,7 +182,7 @@ if __name__ == "__main__":
         if location.visited:
             print(location.brief_description)
         else:
-            print(location.visited)
+            print(location.long_description)
             location.visited = True
 
         # Display possible actions at this location
