@@ -28,6 +28,7 @@ from event_logger import Event, EventList
 
 # Note: You may add in other import statements here as needed
 import random
+from interact import Interact
 
 # Note: You may add helper functions, classes, etc. below as needed
 LOCK_CODE = random.randint(1000, 9999)
@@ -223,13 +224,5 @@ if __name__ == "__main__":
                     else:
                         print("You search around the area but find nothing.")
 
-                elif choice == "interact with lost and found":
-                    print("You talk to the front desk. It must be your lucky day!.",
-                          "They have your lucky mug. You put it in your inventory")
-                    game.current_inv.append(game.get_item(result))
-                    location.available_commands.pop("interact with lost and found")
-                elif choice == "lift locker":
-                    print("You spot your USB under a cabinet. How did it get there?")
-                elif choice == "use item":
-                    game.display_inv()
-                    print("Which item would you like to use?")
+                elif choice == "interact":
+                    Interact(location).trade(game)
