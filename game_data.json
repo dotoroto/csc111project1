@@ -2,6 +2,123 @@
   "locations": [
     {
       "id": 1,
+      "name": "Innis Dorm Room",
+      "brief_description": "You see something shiny on the ground -- looks like a toonie?",
+      "long_description": "",
+      "available_commands": {
+        "go east": 2,
+        "interact": "submit project"
+      },
+      "items": ["toonie, Tcard"],
+    },
+    {
+      "id": 2,
+      "name": "Robarts Commons",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go east": 8,
+        "go west": 1,
+        "go south": 3,
+        "interact": "lost and found desk"
+      },
+      "items": [""],
+    },
+    {
+      "id": 3,
+      "name": "Hart House Locker Rooms",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go north": 2,
+        "go south": 4,
+        "interact": "enter locker code"
+      },
+      "items": [""],
+    },
+    {
+      "id": 4,
+      "name": "OISE 1F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go north": 3,
+        "go south": 5,
+        "interact": "rotman kid"
+      },
+      "items": [""],
+    },
+    {
+      "id": 5,
+      "name": "Health Sciences Building 6F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go east": 7,
+        "go west": 6,
+        "go north": 4,
+        "interact": "hungry student"
+      },
+      "items": [""],
+    },
+    {
+      "id": 6,
+      "name": "Medical Sciences Building 2F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go east": 5,
+        "interact": "buy boba"
+      },
+      "items": [""],
+    },
+    {
+      "id": 7,
+      "name": "Starbucks Cafe",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go west": 5,
+        "interact": "open janitor closet"
+      },
+      "items": [""],
+    },
+    {
+      "id": 8,
+      "name": "Sidney Smith Hall 1F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go east": 9,
+        "go west": 2,
+        "interact": "broken vending machine"
+      },
+      "items": [""],
+    },
+    {
+      "id": 9,
+      "name": "McLennan 1F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go east": 10,
+        "go west": 8
+      },
+      "items": ["gum"],
+    },
+    {
+      "id": 10,
+      "name": "Myhal 2F",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go west": 9,
+        "go south": 11
+      },
+      "items": [""],
+    },
+    {
+      "id": 11,
       "name": "Bahen 1F",
       "brief_description": "You are on the first floor of the Bahen Center. There are elevators to the West, and an exit from the building to St. George street to the East. You see something shiny on the ground -- looks like a toonie?",
       "long_description": "You are on the first floor of the Bahen Center. It's usually crowded at this time of the day, but today it's eerily quiet. Only a few students are studying at the table near the doors. You better not disturb them. One student is rushing down the corridor, wearing a heavy-looking backpack and carrying a textbook in their arms. There are elevators to the West, and an exit from the building to St. George street to the East.",
@@ -9,7 +126,18 @@
         "go south": 4,
         "go east": 2
       },
-      "items": ["toonie"]
+      "items": [""],
+    },
+    {
+      "id": 12,
+      "name": "Gerstein Library",
+      "brief_description": "",
+      "long_description": "",
+      "available_commands": {
+        "go north": 11,
+        "interact": "get trapped usb drive"
+      },
+      "items": [""],
     }
   ],
   "items": [
