@@ -47,8 +47,10 @@ class AdventureGame:
 
     _locations: dict[int, Location]
     _items: list[Item]
+    current_inv: list[Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
+    score: int #newly added
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -73,6 +75,7 @@ class AdventureGame:
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
+        self.score = 0
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -85,8 +88,8 @@ class AdventureGame:
 
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
-                                    loc_data['available_commands'], loc_data['items'])
+            location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
+                                    loc_data['long_description'], loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -109,6 +112,12 @@ class AdventureGame:
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
+
+    #Newly created helper function
+    def display_inv(self):
+        """Prints the current items that the user has in their inventory and the description of each item"""
+        for item in self.current_inv:
+            print("-", item.name + ": " + item.description)
 
 
 if __name__ == "__main__":
@@ -160,15 +169,21 @@ if __name__ == "__main__":
             # TODO: Handle each menu command as appropriate
             if choice == "log":
                 game_log.display_events()
-            elif choice == "go north":
-            elif choice == "go south":
-            elif choice == "go east":
-            elif choice == "go west":
+            elif choice.startswith("go "):
+                new_loc_id = game.get_location().available_commands[choice]
+                game.current_location_id = new_loc_id
+                location = game.get_location(new_loc_id)
             elif choice == "look":
+                print(location.long_description)
             elif choice == "inventory":
+                print("Your current inventory:")
+                game.display_inv()
             elif choice == "score":
+                print("Your current score is:", game.score)
             elif choice == "quit":
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+                print("You have quit the game.")
+                game.ongoing = False
+        # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
 
         else:
             # Handle non-menu actions
