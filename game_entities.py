@@ -44,6 +44,7 @@ class Location:
     long_description: str
     available_commands: dict[str, int | str]
     items: list[str]
+    enter_requirement: str
     visited: bool = False
 
 
