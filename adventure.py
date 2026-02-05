@@ -51,7 +51,7 @@ class AdventureGame:
     current_inv: list[Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
-    score: int #newly added
+    score: int
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -90,7 +90,8 @@ class AdventureGame:
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
-                                    loc_data['long_description'], loc_data['available_commands'], loc_data['items'])
+                                    loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
+                                    loc_data['enter_requirement'])
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -196,25 +197,36 @@ if __name__ == "__main__":
 
         else:
             # Handle non-menu actions
-
             result = location.available_commands[choice]
-            game.current_location_id = result
 
-            # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
-            # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
-
-            if choice == "search":
-                #adds item to inventory + story description
-                if len(location.items) > 0:
-                    print("You pick up a " + location.items[0] + ".")
-                    grabbable_item = game.get_item(location.items[0])
-                    game.current_inv.append(grabbable_item)
-                    location.items.pop(0)
+            if choice.startswith("go "):
+                key_needed = game.get_location(result).enter_requirement
+                if key_needed == '':
+                    game.current_location_id = result
                 else:
-                    print("You search around the area but find nothing.")
+                    if key_needed in game.current_inv:
+                        print("You use your", key_needed, "and go in.")
+                    else:
+                        print("You need a", key_needed, "to enter.")
+                        choice = None
+            else:
+                if choice == "search":
+                    if len(location.items) > 0:
+                        grabbable_item = game.get_item(location.items[0])
+                        game.current_inv.append(grabbable_item)
+                        print(grabbable_item.description)
+                        print("You pick up the " + location.items[0] + ".")
+                        location.items.pop(0)
+                    else:
+                        print("You search around the area but find nothing.")
 
-            elif choice == "interact":
-                #interact with any NPCs
-            elif choice == "use item":
-                game.display_inv()
-                print("Which item would you like to use?")
+                elif choice == "interact with lost and found":
+                    print("You talk to the front desk. It must be your lucky day!.",
+                          "They have your lucky mug. You put it in your inventory")
+                    game.current_inv.append(game.get_item(result))
+                    location.available_commands.pop("interact with lost and found")
+                elif choice == "lift locker":
+                    print("You spot your USB under a cabinet. How did it get there?")
+                elif choice == "use item":
+                    game.display_inv()
+                    print("Which item would you like to use?")
