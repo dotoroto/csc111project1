@@ -10,7 +10,8 @@
         "interact": "win"
       },
       "items": ["toonie, tcard"],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "usb drive,laptop charger,lucky mug"
     },
     {
       "id": 2,
@@ -24,7 +25,8 @@
         "interact": "lucky mug"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": None
     },
     {
       "id": 3,
@@ -37,7 +39,8 @@
         "interact": "laptop charger"
       },
       "items": [""],
-      "enter_requirement": "tcard"
+      "enter_requirement": "tcard",
+      "required_item": "cryptic message item"
     },
     {
       "id": 4,
@@ -50,7 +53,8 @@
         "interact": "loonie,quarter"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "toonie"
     },
     {
       "id": 5,
@@ -64,7 +68,8 @@
         "interact": "janitor closet key"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "chocolate bar"
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
         "buy boba": ""
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "loonie"
     },
     {
       "id": 7,
@@ -88,7 +94,8 @@
         "interact": "cipher message item"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "janitor closet key"
     },
     {
       "id": 8,
@@ -101,7 +108,8 @@
         "interact": "chocolate bar"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "quarter"
     },
     {
       "id": 9,
@@ -113,7 +121,8 @@
         "go west": 8
       },
       "items": ["gum"],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": None
     },
     {
       "id": 10,
@@ -125,7 +134,8 @@
         "go south": 11
       },
       "items": ["ruler"],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": None
     },
     {
       "id": 11,
@@ -137,7 +147,8 @@
         "go east": 2
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": None
     },
     {
       "id": 12,
@@ -149,26 +160,27 @@
         "interact": "usb drive"
       },
       "items": [""],
-      "enter_requirement": ""
+      "enter_requirement": "",
+      "required_item": "gum,ruler"
     }
   ],
   "items": [
     {
-      "name": "USB Drive",
+      "name": "usb drive",
       "description": "Your project's USB drive containing the only copy of your game.",
       "start_position": 12,
       "target_position": 1,
       "target_points": 5
     },
     {
-      "name": "Laptop Charger",
+      "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
       "start_position": 3,
       "target_position": 1,
       "target_points": 5
     },
     {
-      "name": "Lucky Mug",
+      "name": "lucky mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
       "start_position": 2,
       "target_position": 1,
