@@ -28,7 +28,6 @@ from event_logger import Event, EventList
 
 # Note: You may add in other import statements here as needed
 import random
-from interact import Interact
 
 # Note: You may add helper functions, classes, etc. below as needed
 LOCK_CODE = random.randint(1000, 9999)
@@ -95,7 +94,7 @@ class AdventureGame:
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
-                                    loc_data['enter_requirement'])
+                                    loc_data['enter_requirement'], loc_data['interaction'])
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -126,11 +125,26 @@ class AdventureGame:
                 return item
         return None
 
-    #Newly created helper function
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
         for item in self.current_inv:
             print("-", item.name + ": " + item.description)
+
+    def trade(self, given_location: Location) -> None:
+        """Check if user has item required for trade at given location.
+        If they do, complete the trade and print what has happened."""
+        given_location = given_location.interaction[0]
+        recieve_item = given_location.interaction[1]
+
+        """
+        elif give_item in game.current_inv:
+            #check if trade item is in user inventory
+            game.current_inv.remove(give_item)
+            game.current_inv.append(recieve_item)
+            print("You now have", recieve_item.name, "in your inventory")
+            self.location.available_commands.pop("interact")
+        else:
+            print("You do not have the required items to complete this action.")"""
 
 
 if __name__ == "__main__":
@@ -224,5 +238,5 @@ if __name__ == "__main__":
                     else:
                         print("You search around the area but find nothing.")
 
-                elif choice == "interact":
-                    Interact(location).trade(game)
+                elif choice == "trade":
+                    game.trade(location)

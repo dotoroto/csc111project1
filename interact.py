@@ -24,12 +24,8 @@ class Interact:
 
     def trade(self, game: AdventureGame) -> None:
         """Check if user has item. If they do, complete the trade and print what has happened."""
-        give_item = None
-        recieve_item = None
-
-        #check location to figure out items to give and recieve
-        if self.location.name == "Robarts Commons":
-            recieve_item = game.get_item("lucky mug")
+        give_item [Item] = location.required_item
+        recieve_item [Item] = location.
 
         if give_item is None:
             #item is given away for free
