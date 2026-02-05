@@ -137,7 +137,7 @@ class AdventureGame:
             if len(given_location.items) == 0:
                 given_location.available_commands.pop("search")
 
-    def trade(self, given_location: Location) -> None:
+    def trade(self, given_location: Location) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
         give_items = given_location.interaction[0]
@@ -152,7 +152,9 @@ class AdventureGame:
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
             given_location.available_commands.pop("trade")
+            return True
         else:
+            return False
             print("You do not have the required items to complete this action.")
 
     def interact(self, given_location: Location) -> None:
@@ -238,6 +240,12 @@ if __name__ == "__main__":
             elif choice == "inventory":
                 print("Your current inventory:")
                 game.display_inv()
+                inspect = input("Input object name to inspect, or 'no' if not: ").strip().lower()
+                if inspect != 'no':
+                    if game.get_item(inspect) in game.current_inv:
+                        print(game.get_item(inspect).description)
+                    else:
+                        print("That was not a valid object.")
             elif choice == "score":
                 print("Your current score is:", game.score)
             elif choice == "quit":
@@ -263,12 +271,18 @@ if __name__ == "__main__":
             else:
                 if choice == "search":
                     game.search(location)
-                elif choice == "trade" or "reach under cabinet":
+                elif choice == "trade":
                     game.trade(location)
                 elif choice == "interact":
                     game.interact(location)
                 elif choice == "submit project":
                     game.submit(location)
+                elif choice == "grab USB":
+                    if game.trade(location):
+                        print("Yay! Your USB is now in your inventory")
+                    else:
+                        print("You try to grab it with your bare hands, but it won't reach.",
+                              "You realize a ruler and some chewed up gum might help...")
 
         print("\n================\n")
 
