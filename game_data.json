@@ -169,85 +169,61 @@
     {
       "name": "usb drive",
       "description": "Your project's USB drive containing the only copy of your game.",
-      "start_position": 12,
-      "target_position": 1,
       "target_points": 5
     },
     {
       "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
-      "start_position": 3,
-      "target_position": 1,
       "target_points": 5
     },
     {
       "name": "lucky mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
-      "start_position": 2,
-      "target_position": 1,
       "target_points": 5
     },
     {
       "name": "loonie",
       "description": "A loonie from the Rotman student. What a scammer.",
-      "start_position": 4,
-      "target_position": 6,
       "target_points": 2
     },
     {
       "name": "quarter",
       "description": "A quarter from the Rotman student. What a scammer.",
-      "start_position": 4,
-      "target_position": 8,
       "target_points": 5
     },
     {
       "name": "toonie",
       "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "start_position": 1,
-      "target_position": 4,
       "target_points": 1
     },
     {
       "name": "tcard",
       "description": "Your T-card.",
-      "start_position": 1,
-      "target_position": 3,
       "target_points": 1
     },
     {
       "name": "chocolate bar",
       "description": "A delicious chocolate bar. I wonder if anyone's hungry.",
-      "start_position": 8,
-      "target_position": 5,
       "target_points": 3
     },
     {
       "name": "janitor closet key",
       "description": "The only copy of the key to get into the janitor's closet.",
-      "start_position": 5,
-      "target_position": 7,
       "target_points": 3
     },
     {
       "name": "cryptic message item",
       "description": "An old piece of paper with some scribbled writing. I wonder who left it there.",
-      "start_position": 7,
-      "target_position": 3,
       "target_points": 3
     },
     {
       "name": "gum",
       "description": "A piece of chewed gum. Ewww... but it could be useful with a ruler.",
-      "start_position": 9,
-      "target_position": 12,
       "target_points": 1
     },
     {
       "name": "ruler",
       "description": "A strong durable ruler. It seems like it would work well to pry up heavy objects.",
-      "start_position": 10,
-      "target_position": 12,
       "target_points": 1
     }
   ]
