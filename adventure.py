@@ -48,8 +48,10 @@ class AdventureGame:
 
     _locations: dict[int, Location]
     _items: list[Item]
+    current_inv: list[Item]
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
+    score: int #newly added
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -74,6 +76,7 @@ class AdventureGame:
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
+        self.score = 0
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -86,8 +89,8 @@ class AdventureGame:
 
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
-                                    loc_data['available_commands'], loc_data['items'])
+            location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
+                                    loc_data['long_description'], loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -110,6 +113,12 @@ class AdventureGame:
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
+
+    #Newly created helper function
+    def display_inv(self):
+        """Prints the current items that the user has in their inventory and the description of each item"""
+        for item in self.current_inv:
+            print("-", item.name + ": " + item.description)
 
 
 if __name__ == "__main__":
@@ -137,10 +146,15 @@ if __name__ == "__main__":
         # TODO: Add new Event to game log to represent current game location
         #  Note that the <choice> variable should be the command which led to this event
         # YOUR CODE HERE
+        game_log.add_event(Event(location.id_num, location.long_description, None, None, game_log.last), choice)
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
+        if location.visited:
+            print(location.brief_description)
+        else:
+            print(location.visited)
+            location.visited = True
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, log, quit")
@@ -161,20 +175,33 @@ if __name__ == "__main__":
             # TODO: Handle each menu command as appropriate
             if choice == "log":
                 game_log.display_events()
-            elif choice == "go north":
-            elif choice == "go south":
-            elif choice == "go east":
-            elif choice == "go west":
             elif choice == "look":
+                print(location.long_description)
             elif choice == "inventory":
+                print("Your current inventory:")
+                game.display_inv()
             elif choice == "score":
+                print("Your current score is:", game.score)
             elif choice == "quit":
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+                print("You have quit the game.")
+                game.ongoing = False
+        # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
 
         else:
             # Handle non-menu actions
+
             result = location.available_commands[choice]
             game.current_location_id = result
 
             # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
+
+            if choice == "search":
+                #displays items available to take
+                #print items in room
+
+            elif choice == "interact":
+                #interact with any NPCs
+            elif choice == "use item":
+                game.display_inv()
+                print("Which item would you like to use?")
