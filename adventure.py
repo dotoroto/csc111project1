@@ -25,10 +25,13 @@ from game_entities import Location, Item
 from event_logger import Event, EventList
 
 
+
 # Note: You may add in other import statements here as needed
+import random
 
 # Note: You may add helper functions, classes, etc. below as needed
-
+LOCK_CODE = random.randint(1000, 9999)
+CRYPIC_MESSAGE = hex(LOCK_CODE)
 
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.

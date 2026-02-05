@@ -50,9 +50,12 @@ class AdventureGameSimulation:
 
         # TODO: Add first event (initial location, no previous command)
         # Hint: self._game.get_location() gives you back the current location
+        start_loc = self._game.get_location(initial_location_id)
+        self._events.add_event(Event(start_loc.id_num, start_loc.description), None)
 
         # TODO: Generate the remaining events based on the commands and initial location
         # Hint: Call self.generate_events with the appropriate arguments
+        self.generate_events(commands, initial_location_id)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """
