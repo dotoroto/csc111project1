@@ -145,10 +145,15 @@ if __name__ == "__main__":
         # TODO: Add new Event to game log to represent current game location
         #  Note that the <choice> variable should be the command which led to this event
         # YOUR CODE HERE
+        game_log.add_event(Event(location.id_num, location.long_description, None, None, game_log.last), choice)
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
+        if location.visited:
+            print(location.brief_description)
+        else:
+            print(location.visited)
+            location.visited = True
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, log, quit")
@@ -169,10 +174,6 @@ if __name__ == "__main__":
             # TODO: Handle each menu command as appropriate
             if choice == "log":
                 game_log.display_events()
-            elif choice.startswith("go "):
-                new_loc_id = game.get_location().available_commands[choice]
-                game.current_location_id = new_loc_id
-                location = game.get_location(new_loc_id)
             elif choice == "look":
                 print(location.long_description)
             elif choice == "inventory":
@@ -187,8 +188,19 @@ if __name__ == "__main__":
 
         else:
             # Handle non-menu actions
+
             result = location.available_commands[choice]
             game.current_location_id = result
 
             # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
+
+            if choice == "search":
+                #displays items available to take
+                #print items in room
+
+            elif choice == "interact":
+                #interact with any NPCs
+            elif choice == "use item":
+                game.display_inv()
+                print("Which item would you like to use?")
