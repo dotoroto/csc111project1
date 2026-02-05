@@ -24,14 +24,13 @@ from typing import Optional
 from game_entities import Location, Item
 from event_logger import Event, EventList
 
-
-
 # Note: You may add in other import statements here as needed
 import random
 
 # Note: You may add helper functions, classes, etc. below as needed
 LOCK_CODE = random.randint(1000, 9999)
 CRYPIC_MESSAGE = hex(LOCK_CODE)
+
 
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
@@ -55,7 +54,6 @@ class AdventureGame:
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
     score: int
-    
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -81,7 +79,7 @@ class AdventureGame:
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
         self.score = 0
-
+        self.current_inv = []
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -149,12 +147,12 @@ class AdventureGame:
     def trade(self, given_location: Location) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
-        given_location = given_location.interaction[0]
+        given_items = given_location.interaction[0]
         recieve_item = given_location.interaction[1]
 
-        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in given_items])
         if all_give_items_exist:
-            for item in give_items:
+            for item in given_items:
                 self.current_inv.remove(self.get_item(item))
             for item in recieve_item:
                 self.current_inv.append(self.get_item(item))
@@ -163,8 +161,8 @@ class AdventureGame:
             given_location.available_commands.pop("trade")
             return True
         else:
-            return False
             print("You do not have the required items to complete this action.")
+            return False
 
     def interact(self, given_location: Location) -> None:
         """Give user items from the interaction at a specified location."""
@@ -187,10 +185,7 @@ class AdventureGame:
         else:
             print("You do not have the required items to submit your project yet.")
 
-
-            print("You do not have the required items to complete this action.")
-
-    def puzzle(lock_combination: list[int]) -> bool:
+    def puzzle(self) -> bool:
         """
         Prompts the user to enter the 3-digit locker combination to unlock the locker
 
@@ -199,15 +194,13 @@ class AdventureGame:
         user_answer = []
         print("Huh, you need 3 numbers to unlock it...where could you get this? (please reword)")
         suffixes = ["1st", "2nd", "3rd"]
-        for i in range(0,3):
-            print(suffixes[i] + " digit: ")
+        for combo in range(3):
+            print(suffixes[combo] + " digit: ")
             user_answer.append(int(input()))
-        
-        return user_answer == combination
-        
 
-        
-    
+        return user_answer == combination
+
+
 if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
@@ -222,16 +215,17 @@ if __name__ == "__main__":
     game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
     menu = ["look", "inventory", "score", "log", "quit"]  # Regular menu options available at each location
     choice = None
+    moves = 0
 
     # We generate a new cryptic message (an item used in the game) every time the game is ran
     # Generate a random list of 3 numbers that represent the locker combination
     combination = []
-    for i in range(0,3):
+    for i in range(0, 3):
         num = random.randint(10, 15)
         # while loop handles repetitive numbers as opposed to a comprehension
         while num in combination:
             num = random.randint(10, 15)
-        
+
         combination.append(num)
     # Change to hexadecimal
     cryptic_message = [hex(num).upper() for num in combination]
@@ -254,7 +248,7 @@ if __name__ == "__main__":
         if location.visited:
             print(location.brief_description)
         else:
-            print(location.visited)
+            print(location.long_description)
             location.visited = True
 
         # Display possible actions at this location
@@ -324,6 +318,7 @@ if __name__ == "__main__":
                     else:
                         print("You try to grab it with your bare hands, but it won't reach.",
                               "You realize a ruler and some chewed up gum might help...")
+
 
         print("\n================\n")
 
