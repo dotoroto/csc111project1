@@ -7,9 +7,10 @@
       "long_description": "",
       "available_commands": {
         "go east": 2,
-        "interact": "submit project"
+        "interact": "win"
       },
-      "items": ["toonie, Tcard"],
+      "items": ["toonie, tcard"],
+      "enter_requirement": ""
     },
     {
       "id": 2,
@@ -20,9 +21,10 @@
         "go east": 8,
         "go west": 1,
         "go south": 3,
-        "interact": "lost and found desk"
+        "interact": "lucky mug"
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 3,
@@ -32,9 +34,10 @@
       "available_commands": {
         "go north": 2,
         "go south": 4,
-        "interact": "enter locker code"
+        "interact": "laptop charger"
       },
       "items": [""],
+      "enter_requirement": "tcard"
     },
     {
       "id": 4,
@@ -44,9 +47,10 @@
       "available_commands": {
         "go north": 3,
         "go south": 5,
-        "interact": "rotman kid"
+        "interact": "loonie,quarter"
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 5,
@@ -57,9 +61,10 @@
         "go east": 7,
         "go west": 6,
         "go north": 4,
-        "interact": "hungry student"
+        "interact": "janitor closet key"
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 6,
@@ -68,9 +73,10 @@
       "long_description": "",
       "available_commands": {
         "go east": 5,
-        "interact": "buy boba"
+        "buy boba": ""
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 7,
@@ -79,9 +85,10 @@
       "long_description": "",
       "available_commands": {
         "go west": 5,
-        "interact": "open janitor closet"
+        "interact": "cipher message item"
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 8,
@@ -91,9 +98,10 @@
       "available_commands": {
         "go east": 9,
         "go west": 2,
-        "interact": "broken vending machine"
+        "interact": "chocolate bar"
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 9,
@@ -105,6 +113,7 @@
         "go west": 8
       },
       "items": ["gum"],
+      "enter_requirement": ""
     },
     {
       "id": 10,
@@ -115,7 +124,8 @@
         "go west": 9,
         "go south": 11
       },
-      "items": [""],
+      "items": ["ruler"],
+      "enter_requirement": ""
     },
     {
       "id": 11,
@@ -127,6 +137,7 @@
         "go east": 2
       },
       "items": [""],
+      "enter_requirement": ""
     },
     {
       "id": 12,
@@ -135,39 +146,96 @@
       "long_description": "",
       "available_commands": {
         "go north": 11,
-        "interact": "get trapped usb drive"
+        "interact": "usb drive"
       },
       "items": [""],
+      "enter_requirement": ""
     }
   ],
   "items": [
     {
-      "name": "toonie",
-      "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "start_position": 1,
-      "target_position": 4,
-      "target_points": 5,
-    },
-    {
       "name": "USB Drive",
       "description": "Your project's USB drive containing the only copy of your game.",
-      "start_position": 1,
-      "target_position": 4,
+      "start_position": 12,
+      "target_position": 1,
       "target_points": 5
     },
     {
       "name": "Laptop Charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
-      "start_position": 1,
-      "target_position": 4,
+      "start_position": 3,
+      "target_position": 1,
       "target_points": 5
     },
     {
       "name": "Lucky Mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
+      "start_position": 2,
+      "target_position": 1,
+      "target_points": 5
+    },
+    {
+      "name": "loonie",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
+      "start_position": 4,
+      "target_position": 6,
+      "target_points": 2,
+    },
+    {
+      "name": "quarter",
+      "description": "",
+      "start_position": 4,
+      "target_position": 8,
+      "target_points": 5,
+    },
+    {
+      "name": "toonie",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
       "start_position": 1,
       "target_position": 4,
-      "target_points": 5
+      "target_points": 1,
+    },
+    {
+      "name": "tcard",
+      "description": "",
+      "start_position": 1,
+      "target_position": 3,
+      "target_points": 1,
+    },
+    {
+      "name": "chocolate bar",
+      "description": "",
+      "start_position": 8,
+      "target_position": 5,
+      "target_points": 3,
+    },
+    {
+      "name": "janitor closet key",
+      "description": "",
+      "start_position": 5,
+      "target_position": 7,
+      "target_points": 3,
+    },
+    {
+      "name": "cryptic message item",
+      "description": "",
+      "start_position": 7,
+      "target_position": 3,
+      "target_points": 3,
+    },
+    {
+      "name": "gum",
+      "description": "",
+      "start_position": 9,
+      "target_position": 12,
+      "target_points": 1,
+    },
+    {
+      "name": "ruler",
+      "description": "",
+      "start_position": 10,
+      "target_position": 12,
+      "target_points": 1,
     }
   ]
 }
