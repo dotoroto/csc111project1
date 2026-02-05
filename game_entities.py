@@ -45,6 +45,7 @@ class Location:
     available_commands: dict[str, int | str]
     items: list[str]
     enter_requirement: str
+    interaction: list[Any]
     visited: bool = False
 
 

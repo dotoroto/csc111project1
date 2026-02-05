@@ -94,7 +94,7 @@ class AdventureGame:
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
-                                    loc_data['enter_requirement'])
+                                    loc_data['enter_requirement'], loc_data['interaction'])
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -125,11 +125,28 @@ class AdventureGame:
                 return item
         return None
 
-    #Newly created helper function
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
         for item in self.current_inv:
             print("-", item.name + ": " + item.description)
+
+    def trade(self, given_location: Location) -> None:
+        """Check if user has item required for trade at given location.
+        If they do, complete the trade and print what has happened."""
+        give_items = given_location.interaction[0]
+        recieve_item = given_location.interaction[1]
+
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        if all_give_items_exist:
+            #all items needed to complete trade are in inventory
+            for item in give_items:
+                self.current_inv.remove(self.get_item(item))
+            for item in recieve_item:
+                self.current_inv.append(self.get_item(item))
+                print("You now have", item, "in your inventory")
+            given_location.available_commands.pop("trade")
+        else:
+            print("You do not have the required items to complete this action.")
 
 
 if __name__ == "__main__":
@@ -223,13 +240,5 @@ if __name__ == "__main__":
                     else:
                         print("You search around the area but find nothing.")
 
-                elif choice == "interact with lost and found":
-                    print("You talk to the front desk. It must be your lucky day!.",
-                          "They have your lucky mug. You put it in your inventory")
-                    game.current_inv.append(game.get_item(result))
-                    location.available_commands.pop("interact with lost and found")
-                elif choice == "lift locker":
-                    print("You spot your USB under a cabinet. How did it get there?")
-                elif choice == "use item":
-                    game.display_inv()
-                    print("Which item would you like to use?")
+                elif choice == "trade":
+                    game.trade(location)
