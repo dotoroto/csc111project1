@@ -79,6 +79,7 @@ class EventList:
         """Return whether this event list is empty."""
 
         # TODO: Your code below
+        return self.first is None
 
     def add_event(self, event: Event, command: str = None) -> None:
         """
@@ -89,6 +90,16 @@ class EventList:
         # Hint: You should update the previous node's <next_command> as needed
 
         # TODO: Your code below
+        if self.is_empty():
+            self.first = event
+
+        else:
+            # Based on representation invariants, I can assume that
+            # last != None because if self.is_empty() then self.first is None so self.last is None
+            self.last.next = event
+            self.last.next_command = command
+            event.prev = self.last
+        self.last = event
 
     def remove_last_event(self) -> None:
         """
@@ -98,11 +109,29 @@ class EventList:
         # Hint: The <next_command> and <next> attributes for the new last event should be updated as needed
 
         # TODO: Your code below
+        if self.is_empty():
+            return
+
+        if self.first == self.last:
+            self.first = None
+            self.last = None
+
+        else:
+            self.last = self.last.prev
+            self.last.next = None
+            self.last.next_command = None
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
 
         # TODO: Your code below
+        curr = self.first
+        id_log = []
+        while curr is not None:
+            id_log.append(curr.id_num)
+            curr = curr.next
+        return id_log
+
 
     # Note: You may add other methods to this class as needed
 

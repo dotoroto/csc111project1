@@ -114,6 +114,13 @@ class AdventureGame:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
 
+    def get_item(self, item_name: str) -> Item | None:
+        """Return Item object associated with the provided object name."""
+        for item in self._items:
+            if item.name == item_name:
+                return item
+        return None
+
     #Newly created helper function
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
@@ -197,8 +204,14 @@ if __name__ == "__main__":
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
 
             if choice == "search":
-                #displays items available to take
-                #print items in room
+                #adds item to inventory + story description
+                if len(location.items) > 0:
+                    print("You pick up a " + location.items[0] + ".")
+                    grabbable_item = game.get_item(location.items[0])
+                    game.current_inv.append(grabbable_item)
+                    location.items.pop(0)
+                else:
+                    print("You search around the area but find nothing.")
 
             elif choice == "interact":
                 #interact with any NPCs
