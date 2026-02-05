@@ -133,18 +133,20 @@ class AdventureGame:
     def trade(self, given_location: Location) -> None:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
-        given_location = given_location.interaction[0]
+        give_items = given_location.interaction[0]
         recieve_item = given_location.interaction[1]
 
-        """
-        elif give_item in game.current_inv:
-            #check if trade item is in user inventory
-            game.current_inv.remove(give_item)
-            game.current_inv.append(recieve_item)
-            print("You now have", recieve_item.name, "in your inventory")
-            self.location.available_commands.pop("interact")
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        if all_give_items_exist:
+            #all items needed to complete trade are in inventory
+            for item in give_items:
+                self.current_inv.remove(self.get_item(item))
+            for item in recieve_item:
+                self.current_inv.append(self.get_item(item))
+                print("You now have", item, "in your inventory")
+            given_location.available_commands.pop("trade")
         else:
-            print("You do not have the required items to complete this action.")"""
+            print("You do not have the required items to complete this action.")
 
 
 if __name__ == "__main__":
