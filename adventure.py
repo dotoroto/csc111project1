@@ -129,7 +129,7 @@ class AdventureGame:
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
         for item in self.current_inv:
-            print("-", item.name + ": " + item.description)
+            print("-", item.name)
 
     def trade(self, given_location: Location) -> None:
         """Check if user has item required for trade at given location.
@@ -139,7 +139,6 @@ class AdventureGame:
 
         all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
         if all_give_items_exist:
-            #all items needed to complete trade are in inventory
             for item in give_items:
                 self.current_inv.remove(self.get_item(item))
             for item in recieve_item:
@@ -148,6 +147,14 @@ class AdventureGame:
             given_location.available_commands.pop("trade")
         else:
             print("You do not have the required items to complete this action.")
+
+    def interact(self, given_location: Location) -> None:
+        """Give user items from the interaction at a specified location."""
+        recieve_item = given_location.interaction
+        for item in recieve_item:
+            self.current_inv.append(self.get_item(item))
+            print("You now have", item, "in your inventory")
+        given_location.available_commands.pop("interact")
 
 
 if __name__ == "__main__":
@@ -179,6 +186,7 @@ if __name__ == "__main__":
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
+        print("You are at", location.name)
         if location.visited:
             print(location.brief_description)
         else:
@@ -197,7 +205,7 @@ if __name__ == "__main__":
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
-        print("========")
+        print("================")
         print("You decided to:", choice)
 
         if choice in menu:
@@ -225,11 +233,11 @@ if __name__ == "__main__":
                 if key_needed == '':
                     game.current_location_id = result
                 else:
-                    if key_needed in game.current_inv:
+                    if game.get_item(key_needed) in game.current_inv:
                         print("You use your", key_needed, "and go in.")
+                        game.current_location_id = result
                     else:
                         print("You need a", key_needed, "to enter.")
-                        choice = None
             else:
                 if choice == "search":
                     if len(location.items) > 0:
@@ -238,8 +246,18 @@ if __name__ == "__main__":
                         print(grabbable_item.description)
                         print("You pick up the " + location.items[0] + ".")
                         location.items.pop(0)
+
+                        if len(location.items) == 0:
+                            location.available_commands.pop("search")
                     else:
                         print("You search around the area but find nothing.")
 
                 elif choice == "trade":
                     game.trade(location)
+
+                elif choice == "interact":
+                    game.interact(location)
+
+                elif choice == "submit choice":
+                    game.submit(location)
+        print("================")
