@@ -7,7 +7,7 @@
       "long_description": "",
       "available_commands": {
         "go east": 2,
-        "submit project": "win"
+        "interact": "win"
       },
       "items": ["toonie, tcard"],
       "enter_requirement": ""
@@ -21,7 +21,7 @@
         "go east": 8,
         "go west": 1,
         "go south": 3,
-        "interact with lost and found": "lucky mug"
+        "interact": "lucky mug"
       },
       "items": [""],
       "enter_requirement": ""
@@ -34,7 +34,7 @@
       "available_commands": {
         "go north": 2,
         "go south": 4,
-        "enter locker code": "laptop charger"
+        "interact": "laptop charger"
       },
       "items": [""],
       "enter_requirement": "tcard"
@@ -47,7 +47,7 @@
       "available_commands": {
         "go north": 3,
         "go south": 5,
-        "talk to rotman kid": "loonie,quarter"
+        "interact": "loonie,quarter"
       },
       "items": [""],
       "enter_requirement": ""
@@ -61,7 +61,7 @@
         "go east": 7,
         "go west": 6,
         "go north": 4,
-        "talk to hungry student": "janitor closet key"
+        "interact": "janitor closet key"
       },
       "items": [""],
       "enter_requirement": ""
@@ -85,7 +85,7 @@
       "long_description": "",
       "available_commands": {
         "go west": 5,
-        "open janitor closet": "cipher message item"
+        "interact": "cipher message item"
       },
       "items": [""],
       "enter_requirement": ""
@@ -98,7 +98,7 @@
       "available_commands": {
         "go east": 9,
         "go west": 2,
-        "buy from vending machine": "chocolate bar"
+        "interact": "chocolate bar"
       },
       "items": [""],
       "enter_requirement": ""
@@ -146,7 +146,7 @@
       "long_description": "",
       "available_commands": {
         "go north": 11,
-        "get trapped usb drive": "usb drive"
+        "interact": "usb drive"
       },
       "items": [""],
       "enter_requirement": ""
