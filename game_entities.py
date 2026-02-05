@@ -39,10 +39,10 @@ class Location:
     # All locations in your game MUST be represented as an instance of this class.
 
     id_num: int
-    name: str #newly added
+    name: str
     brief_description: str
     long_description: str
-    available_commands: dict[str, int]
+    available_commands: dict[str, int | str]
     items: list[str]
     visited: bool = False
 

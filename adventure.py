@@ -195,25 +195,27 @@ if __name__ == "__main__":
 
         else:
             # Handle non-menu actions
-
             result = location.available_commands[choice]
-            game.current_location_id = result
 
-            # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
-            # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
+            if choice.startswith("go "):
+                game.current_location_id = result
+            else:
+                if choice == "search":
+                    if len(location.items) > 0:
+                        grabbable_item = game.get_item(location.items[0])
+                        game.current_inv.append(grabbable_item)
+                        print(grabbable_item.description)
+                        print("You pick up the " + location.items[0] + ".")
+                        location.items.pop(0)
+                    else:
+                        print("You search around the area but find nothing.")
 
-            if choice == "search":
-                #adds item to inventory + story description
-                if len(location.items) > 0:
-                    print("You pick up a " + location.items[0] + ".")
-                    grabbable_item = game.get_item(location.items[0])
-                    game.current_inv.append(grabbable_item)
-                    location.items.pop(0)
-                else:
-                    print("You search around the area but find nothing.")
-
-            elif choice == "interact":
-                #interact with any NPCs
-            elif choice == "use item":
-                game.display_inv()
-                print("Which item would you like to use?")
+                elif choice == "interact":
+                    if result == "lost & found":
+                        print("You talk to the front desk. It must be your lucky day!.",
+                              "They have your lucky mug. You put it in your inventory")
+                        game.current_inv.append(game.get_item("Lucky Mug"))
+                        location.available_commands.pop("interact")
+                elif choice == "use item":
+                    game.display_inv()
+                    print("Which item would you like to use?")
