@@ -7,11 +7,11 @@
       "long_description": "",
       "available_commands": {
         "go east": 2,
-        "interact": "win"
+        "trade": -1
       },
       "items": ["toonie, tcard"],
       "enter_requirement": "",
-      "required_item": "usb drive,laptop charger,lucky mug"
+      "interaction": [["usb drive", "laptop charger", "lucky mug"], "win"]
     },
     {
       "id": 2,
@@ -22,11 +22,11 @@
         "go east": 8,
         "go west": 1,
         "go south": 3,
-        "interact": "lucky mug"
+        "interact": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": None
+      "interaction": ["lucky mug"]
     },
     {
       "id": 3,
@@ -36,11 +36,11 @@
       "available_commands": {
         "go north": 2,
         "go south": 4,
-        "interact": "laptop charger"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "tcard",
-      "required_item": "cryptic message item"
+      "interaction": [["cryptic message item"], ["laptop charger"]]
     },
     {
       "id": 4,
@@ -50,11 +50,11 @@
       "available_commands": {
         "go north": 3,
         "go south": 5,
-        "interact": "loonie,quarter"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "toonie"
+      "interaction": [["toonie"], ["loonie", "quarter"]]
     },
     {
       "id": 5,
@@ -65,11 +65,11 @@
         "go east": 7,
         "go west": 6,
         "go north": 4,
-        "interact": "janitor closet key"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "chocolate bar"
+      "interaction": [["chocolate bar"], ["janitor closet key"]]
     },
     {
       "id": 6,
@@ -78,11 +78,11 @@
       "long_description": "",
       "available_commands": {
         "go east": 5,
-        "buy boba": ""
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "loonie"
+      "required_item": [["loonie"], ["score"]]
     },
     {
       "id": 7,
@@ -91,11 +91,11 @@
       "long_description": "",
       "available_commands": {
         "go west": 5,
-        "interact": "cipher message item"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "janitor closet key"
+      "interaction": [["janitor closet key"], ["cipher message item"]]
     },
     {
       "id": 8,
@@ -105,11 +105,11 @@
       "available_commands": {
         "go east": 9,
         "go west": 2,
-        "interact": "chocolate bar"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "quarter"
+      "interaction": [["quarter"], ["chocolate bar"]]
     },
     {
       "id": 9,
@@ -122,7 +122,7 @@
       },
       "items": ["gum"],
       "enter_requirement": "",
-      "required_item": None
+      "interaction": None
     },
     {
       "id": 10,
@@ -135,7 +135,7 @@
       },
       "items": ["ruler"],
       "enter_requirement": "",
-      "required_item": None
+      "interaction": None
     },
     {
       "id": 11,
@@ -148,7 +148,7 @@
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": None
+      "interaction": None
     },
     {
       "id": 12,
@@ -157,11 +157,11 @@
       "long_description": "",
       "available_commands": {
         "go north": 11,
-        "interact": "usb drive"
+        "trade": -1
       },
       "items": [""],
       "enter_requirement": "",
-      "required_item": "gum,ruler"
+      "interaction": [["gum", "ruler"], ["usb drive"]]
     }
   ],
   "items": [
