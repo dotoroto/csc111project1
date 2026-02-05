@@ -30,6 +30,8 @@ from event_logger import Event, EventList
 import random
 
 # Note: You may add helper functions, classes, etc. below as needed
+LOCK_CODE = random.randint(1000, 9999)
+CRYPIC_MESSAGE = hex(LOCK_CODE)
 
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
@@ -101,8 +103,7 @@ class AdventureGame:
         # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
         # YOUR CODE BELOW
         for item_data in data['items']:  # Go through each element associated with the 'locations' key in the file
-            item_obj = Item(item_data['name'], item_data['description'], item_data['start_position'],
-                            item_data['target_position'], item_data['target_points'])
+            item_obj = Item(item_data['name'], item_data['description'], item_data['target_points'])
             items.append(item_obj)
 
         return locations, items
@@ -127,8 +128,23 @@ class AdventureGame:
 
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
+        if len(self.current_inv) == 0:
+            print("Your current inventory is empty.")
+            return
         for item in self.current_inv:
-            print("-", item.name + ": " + item.description)
+            print("-", item.name)
+
+    def search(self, given_location: Location) -> None:
+        if len(given_location.items) > 0:
+            grabbable_item = game.get_item(given_location.items[0])
+            self.score += grabbable_item.target_points
+            game.current_inv.append(grabbable_item)
+            print(grabbable_item.description)
+            print("You pick up the " + given_location.items[0] + ".")
+            given_location.items.pop(0)
+
+            if len(given_location.items) == 0:
+                given_location.available_commands.pop("search")
 
     def trade(self, given_location: Location) -> None:
         """Check if user has item required for trade at given location.
@@ -136,16 +152,42 @@ class AdventureGame:
         given_location = given_location.interaction[0]
         recieve_item = given_location.interaction[1]
 
-        """
-        elif give_item in game.current_inv:
-            #check if trade item is in user inventory
-            game.current_inv.remove(give_item)
-            game.current_inv.append(recieve_item)
-            print("You now have", recieve_item.name, "in your inventory")
-            self.location.available_commands.pop("interact")
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        if all_give_items_exist:
+            for item in give_items:
+                self.current_inv.remove(self.get_item(item))
+            for item in recieve_item:
+                self.current_inv.append(self.get_item(item))
+                print("You now have", item, "in your inventory")
+                self.score += self.get_item(item).target_points
+            given_location.available_commands.pop("trade")
         else:
-            print("You do not have the required items to complete this action.")"""
-    
+            print("You do not have the required items to complete this action.")
+
+    def interact(self, given_location: Location) -> None:
+        """Give user items from the interaction at a specified location."""
+        recieve_item = given_location.interaction
+        for item in recieve_item:
+            self.current_inv.append(self.get_item(item))
+            self.score += self.get_item(item).target_points
+            print("You now have", item, "in your inventory")
+        given_location.available_commands.pop("interact")
+
+    def submit(self, given_location) -> None:
+        """If possible, user submits projects and wins if they completed the requirements.
+        Otherwise, tell them they can't submit yet."""
+        give_items = given_location.interaction[0]
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        if all_give_items_exist:
+            print("Congratulations, you submitted your project on time! You cheer and celebrate.",
+                  "Hopefully you get an 100%! Your score is:", self.score)
+            self.ongoing = False
+        else:
+            print("You do not have the required items to submit your project yet.")
+
+
+            print("You do not have the required items to complete this action.")
+
     def puzzle(lock_combination: list[int]) -> bool:
         """
         Prompts the user to enter the 3-digit locker combination to unlock the locker
@@ -193,7 +235,7 @@ if __name__ == "__main__":
     cryptic_message = [hex(num).upper() for num in combination]
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing:
+    while game.ongoing and moves < 40:
         # Note: If the loop body is getting too long, you should split the body up into helper functions
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
@@ -202,10 +244,11 @@ if __name__ == "__main__":
         # TODO: Add new Event to game log to represent current game location
         #  Note that the <choice> variable should be the command which led to this event
         # YOUR CODE HERE
-        game_log.add_event(Event(location.id_num, location.long_description, None, None, game_log.last), choice)
+        game_log.add_event(Event(location.id_num, location.long_description), choice)
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
+        print("You are at", location.name)
         if location.visited:
             print(location.brief_description)
         else:
@@ -224,7 +267,7 @@ if __name__ == "__main__":
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
-        print("========")
+        print("\n================\n")
         print("You decided to:", choice)
 
         if choice in menu:
@@ -241,7 +284,6 @@ if __name__ == "__main__":
             elif choice == "quit":
                 print("You have quit the game.")
                 game.ongoing = False
-        # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
 
         else:
             # Handle non-menu actions
@@ -251,22 +293,28 @@ if __name__ == "__main__":
                 key_needed = game.get_location(result).enter_requirement
                 if key_needed == '':
                     game.current_location_id = result
+                    moves += 1
                 else:
-                    if key_needed in game.current_inv:
+                    if game.get_item(key_needed) in game.current_inv:
                         print("You use your", key_needed, "and go in.")
+                        game.current_location_id = result
+                        moves += 1
                     else:
                         print("You need a", key_needed, "to enter.")
-                        choice = None
             else:
                 if choice == "search":
-                    if len(location.items) > 0:
-                        grabbable_item = game.get_item(location.items[0])
-                        game.current_inv.append(grabbable_item)
-                        print(grabbable_item.description)
-                        print("You pick up the " + location.items[0] + ".")
-                        location.items.pop(0)
-                    else:
-                        print("You search around the area but find nothing.")
-
-                elif choice == "trade":
+                    game.search(location)
+                elif choice == "trade" or "reach under cabinet":
                     game.trade(location)
+                elif choice == "interact":
+                    game.interact(location)
+                elif choice == "submit project":
+                    game.submit(location)
+
+        print("\n================\n")
+
+    if moves >= 40:
+        print("You have exceeded the maximum amount of moves.",
+              "You were running around too much and ran out of time.",
+              "Unfortunately, you recieved a 0 on your project.",
+              "Better luck next time.")
