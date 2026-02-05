@@ -128,6 +128,9 @@ class AdventureGame:
 
     def display_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
+        if len(self.current_inv):
+            print("Your current inventory is empty.")
+            return
         for item in self.current_inv:
             print("-", item.name)
 
@@ -156,6 +159,18 @@ class AdventureGame:
             print("You now have", item, "in your inventory")
         given_location.available_commands.pop("interact")
 
+    def submit(self, given_location) -> None:
+        """If possible, user submits projects and wins if they completed the requirements.
+        Otherwise, tell them they can't submit yet."""
+        give_items = given_location.interaction[0]
+
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
+        if all_give_items_exist:
+            print("Congratulations, you submitted your project on time! You cheer and celebrate.",
+                  "Hopefully you get an 100%!")
+            self.ongoing = False
+        else:
+            print("You do not have the required items to submit your project yet.")
 
 if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
