@@ -190,7 +190,7 @@
       "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
       "target_points": 5,
-      "weight": 300.0
+      "weight": 200.0
     },
     {
       "name": "lucky mug",
