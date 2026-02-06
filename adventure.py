@@ -282,7 +282,6 @@ if __name__ == "__main__":
         combination.append(num)
     # Change to hexadecimal
     cryptic_message = [hex(num).upper() for num in combination]
-    print(combination)
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
     while game.ongoing and moves < 45:
