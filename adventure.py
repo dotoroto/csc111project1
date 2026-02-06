@@ -23,12 +23,7 @@ from typing import Optional
 
 from game_entities import Location, Item
 from event_logger import Event, EventList
-
-# Note: You may add in other import statements here as needed
 import random
-
-
-# Note: You may add helper functions, classes, etc. below as needed
 
 
 class AdventureGame:
@@ -36,7 +31,7 @@ class AdventureGame:
 
     Instance Attributes:
         - current_location_id: the id representing the player's current location
-        - ongoing: ? # TODO
+        - ongoing: the boolean that is true when game is running and false when the player quits, wins, or loses
 
     Representation Invariants:
         - current_location_id >= 1
@@ -50,8 +45,8 @@ class AdventureGame:
     _locations: dict[int, Location]
     _items: list[Item]
     current_inv: list[Item]
-    current_location_id: int  # Suggested attribute, can be removed
-    ongoing: bool  # Suggested attribute, can be removed
+    current_location_id: int
+    ongoing: bool
     score: int
     MAX_WEIGHT: int = 1100
 
@@ -65,17 +60,8 @@ class AdventureGame:
         - game_data_file is the filename of a valid game data JSON file
         """
 
-        # NOTES:
-        # You may add parameters/attributes/methods to this class as you see fit.
-
-        # Requirements:
-        # 1. Make sure the Location class is used to represent each location.
-        # 2. Make sure the Item class is used to represent each item.
-
-        # Suggested helper method (you can remove and load these differently if you wish to do so):
         self._locations, self._items = self._load_game_data(game_data_file)
 
-        # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
         self.score = 0
@@ -99,8 +85,6 @@ class AdventureGame:
             locations[loc_data['id']] = location_obj
 
         items = []
-        # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
-        # YOUR CODE BELOW
         for item_data in data['items']:  # Go through each element associated with the 'locations' key in the file
             item_obj = Item(item_data['name'], item_data['description'], item_data['target_points'],
                             item_data['weight'])
@@ -112,9 +96,6 @@ class AdventureGame:
         """Return Location object associated with the provided location ID.
         If no ID is provided, return the Location object associated with the current location.
         """
-
-        # TODO: Complete this method as specified
-        # YOUR CODE BELOW
         if loc_id is None:
             return self._locations[self.current_location_id]
         return self._locations[loc_id]
@@ -247,8 +228,7 @@ class AdventureGame:
         for combo in range(3):
             print(suffixes[combo] + " digit: ")
             user_ans = input()
-            #In case they entire no digit
-            if user_ans != '':
+            if user_ans != '':  # In case they enter no digit
                 user_answer.append(int(input()))
 
         return user_answer == combination
@@ -290,13 +270,10 @@ if __name__ == "__main__":
 
         location = game.get_location()
 
-        # TODO: Add new Event to game log to represent current game location
-        #  Note that the <choice> variable should be the command which led to this event
-        # YOUR CODE HERE
         game_log.add_event(Event(location.id_num, location.long_description), choice)
 
-        # TODO: Depending on whether or not it's been visited before,
-        #  print either full description (first time visit) or brief description (every subsequent visit) of location
+        # Depending on whether it's been visited before, print either full description (first time visit)
+        # or brief description (every subsequent visit) of location
         print(location.id_num, "You are at", location.name)
         if location.visited:
             print(location.brief_description)
@@ -320,7 +297,6 @@ if __name__ == "__main__":
         print("You decided to:", choice)
 
         if choice in menu:
-            # TODO: Handle each menu command as appropriate
             if choice == "log":
                 game_log.display_events()
             elif choice == "look":

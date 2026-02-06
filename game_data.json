@@ -108,7 +108,7 @@
       "id": 8,
       "name": "Sidney Smith Hall 1F",
       "brief_description": "You are in Sidney Smith Hall. There is a chocolate bar for a single quarter in the vending machine, which you want to buy. \nTo your west is Robarts Commons, East is McLennan.\n",
-      "long_description": "You are in Sidney Smith Hall, the Arts and Science building, filled with ArtSci students going to and from classes. You have had many tutorials in this single building. \nThere is a cafe in the building, the smell of coffee fills your lungs, there is also a vending machine near the entrance of this building. \nYou spot your favorite chocolate bar in the vending machine, you think about getting one, it costs a single quarter. \nTo your west is Robarts Commons, East is McLennan.\n",
+      "long_description": "You are in Sidney Smith Hall, the Arts and Science building, filled with ArtSci students going to and from classes. You have had many tutorials in this single building. \nThere is a cafe in the building, the smell of coffee fills your lungs, there is also a vending machine near the entrance of this building, which only takes quarters. \nYou spot your favorite chocolate bar in the vending machine, you think about getting one, it costs a single quarter. \nTo your west is Robarts Commons, East is McLennan.\n",
       "post_item_grab_description": "You are in Sidney Smith Hall, the Arts and Science building, filled with ArtSci students going to and from classes. You have had many tutorials in this \nsingle building. There is a cafe in the building, the smell of coffee fills your lungs. There is nothing left to do here. \nTo your west is Robarts Commons, East is McLennan.\n",
       "available_commands": {
         "go east": 9,
@@ -180,25 +180,25 @@
     {
       "name": "usb drive",
       "description": "Your project's USB drive containing the only copy of your game.",
-      "target_points": 5,
+      "target_points": 15,
       "weight": 32.5
     },
     {
       "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
-      "target_points": 5,
+      "target_points": 15,
       "weight": 200.0
     },
     {
       "name": "lucky mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
-      "target_points": 5,
+      "target_points": 15,
       "weight": 300.0
     },
     {
       "name": "loonie",
       "description": "A loonie from the Rotman student. What a scammer.",
-      "target_points": 2,
+      "target_points": 5,
       "weight": 6.27
     },
     {
@@ -210,49 +210,49 @@
     {
       "name": "toonie",
       "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "target_points": 1,
+      "target_points": 5,
       "weight": 6.92
     },
     {
       "name": "tcard",
       "description": "Your T-card.",
-      "target_points": 1,
+      "target_points": 0,
       "weight": 5.0
     },
     {
       "name": "chocolate bar",
       "description": "A delicious chocolate bar. I wonder if anyone's hungry.",
-      "target_points": 3,
+      "target_points": 5,
       "weight": 100.0
     },
     {
       "name": "janitor closet key",
       "description": "The only copy of the key to get into the janitor's closet.",
-      "target_points": 3,
+      "target_points": 5,
       "weight": 15.0
     },
     {
       "name": "cryptic message",
       "description": "An old piece of paper with some scribbled writing. I wonder who left it there.",
-      "target_points": 3,
+      "target_points": 5,
       "weight": 4.5
     },
     {
       "name": "gum",
       "description": "A piece of chewed gum. Ewww... but it could be useful with a ruler.",
-      "target_points": 1,
+      "target_points": 5,
       "weight": 2.4
     },
     {
       "name": "ruler",
-      "description": "A strong durable ruler. It seems like it would work well to pry up heavy objects.",
-      "target_points": 1,
+      "description": "A 30cm ruler. It seems like it would work well to insert into small gaps.",
+      "target_points": 5,
       "weight": 48.0
     },
     {
       "name": "bubble tea",
       "description": "A nice refreshing drink!",
-      "target_points": 5,
+      "target_points": 15,
       "weight": 550.0
     }
   ]
