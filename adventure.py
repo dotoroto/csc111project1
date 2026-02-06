@@ -29,7 +29,9 @@ from event_logger import Event, EventList
 # Note: You may add in other import statements here as needed
 import random
 
-# Note: You may add helper functions, classes, etc. below as needed)
+
+# Note: You may add helper functions, classes, etc. below as needed
+
 
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
@@ -53,7 +55,7 @@ class AdventureGame:
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
     score: int
-    
+    MAX_WEIGHT: int = 1100
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -95,13 +97,15 @@ class AdventureGame:
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
                                     loc_data['enter_requirement'], loc_data['interaction'])
+            location_obj.available_commands["search"] = -1
             locations[loc_data['id']] = location_obj
 
         items = []
         # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
         # YOUR CODE BELOW
         for item_data in data['items']:  # Go through each element associated with the 'locations' key in the file
-            item_obj = Item(item_data['name'], item_data['description'], item_data['target_points'])
+            item_obj = Item(item_data['name'], item_data['description'], item_data['target_points']
+                            , item_data['weight'])
             items.append(item_obj)
 
         return locations, items
@@ -124,7 +128,7 @@ class AdventureGame:
                 return item
         return None
 
-    def display_inv(self):
+    def interact_inv(self):
         """Prints the current items that the user has in their inventory and the description of each item"""
         if len(self.current_inv) == 0:
             print("Your current inventory is empty.")
@@ -132,18 +136,49 @@ class AdventureGame:
         for item in self.current_inv:
             print("-", item.name)
 
-    def search(self, given_location: Location) -> None:
-        """Check what items are in the location and pick it up"""
-        if len(given_location.items) > 0:
-            grabbable_item = game.get_item(given_location.items[0])
-            self.score += grabbable_item.target_points
-            game.current_inv.append(grabbable_item)
-            print(grabbable_item.description)
-            print("You pick up the " + given_location.items[0] + ".")
-            given_location.items.pop(0)
+        specific_item = input("\nInput object to select, or 'nothing': ").strip().lower()
+        if specific_item == 'nothing':
+            return
 
-            if len(given_location.items) == 0:
-                given_location.available_commands.pop("search")
+        if self.get_item(specific_item) not in self.current_inv:
+            print("That was not a valid object.")
+            return
+
+        print("You can inspect or drop")
+        action = input("What action would you like to perform: ").strip().lower()
+
+        if action == "inspect":
+            print(self.get_item(specific_item).description)
+            print(specific_item, "weighs", self.get_item(specific_item).weight)
+            if specific_item == 'cipher message item':
+                print("It seems to have some writing:", cryptic_message)
+        elif action == "drop":
+            self._locations[self.current_location_id].items.append(specific_item)
+            self.current_inv.remove(self.get_item(specific_item))
+        else:
+            print("That was not a valid option.")
+
+    def search(self, loc: Location) -> None:
+        """Displays items at given location, and prompts if user wants to pick it up"""
+        if len(loc.items) > 0:
+            print("You find the following:")
+            for item in loc.items:
+                print(item + " - weighs ", self.get_item(item).weight,"g", sep="")
+
+            pickup = input("\nInput object to pickup, or 'nothing': ").strip().lower()
+            if pickup in loc.items:
+                current_weight = sum([i.weight for i in self.current_inv])
+                if current_weight + self.get_item(pickup).weight > self.MAX_WEIGHT:
+                    print("You can't pick this item up. You're already carrying too much... "
+                          "Drop something and try again")
+                else:
+                    self.current_inv.append(self.get_item(pickup))
+                    loc.items.remove(pickup)
+            else:
+                print("That was not an available item.")
+
+        else:
+            print("You find nothing :(")
 
     def display_map(self):
         print("+---+---+---+---+----+")
@@ -156,12 +191,11 @@ class AdventureGame:
         print("| 6 | 5 | 7 |")
         print("+---+---+---+")
 
-
-    def trade(self, given_location: Location) -> bool:
+    def trade(self, loc: Location) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
-        give_items = given_location.interaction[0]
-        recieve_item = given_location.interaction[1]
+        give_items = loc.interaction[0]
+        recieve_item = loc.interaction[1]
 
         all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
         if all_give_items_exist:
@@ -171,23 +205,25 @@ class AdventureGame:
                 self.current_inv.append(self.get_item(item))
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
-            given_location.available_commands.pop("trade")
+            loc.available_commands.pop("trade")
+            return True
         else:
             print("You do not have the required items to complete this action.")
 
-    def interact(self, given_location: Location) -> None:
+    def interact(self, loc: Location) -> None:
         """Give user items from the interaction at a specified location."""
-        recieve_item = given_location.interaction
+        recieve_item = loc.interaction
         for item in recieve_item:
             self.current_inv.append(self.get_item(item))
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
-        given_location.available_commands.pop("interact")
+        if "interact" in loc.available_commands:
+            loc.available_commands.pop("interact")
 
-    def submit(self, given_location) -> None:
+    def submit(self, loc) -> None:
         """If possible, user submits projects and wins if they completed the requirements.
         Otherwise, tell them they can't submit yet."""
-        give_items = given_location.interaction[0]
+        give_items = loc.interaction[0]
         all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
         if all_give_items_exist:
             print("Congratulations, you submitted your project on time! You cheer and celebrate.",
@@ -285,7 +321,7 @@ if __name__ == "__main__":
                 print(location.long_description)
             elif choice == "inventory":
                 print("Your current inventory:")
-                game.display_inv()
+                game.interact_inv()
             elif choice == "score":
                 print("Your current score is:", game.score)
             elif choice == "quit":
@@ -317,6 +353,18 @@ if __name__ == "__main__":
                     game.interact(location)
                 elif choice == "submit project":
                     game.submit(location)
+                elif choice == "open locker":
+                    if game.puzzle():
+                        print("The lock opens!")
+                        game.interact(location)
+                    else:
+                        print("The combination was incorrect.")
+                elif choice == "grab USB":
+                    if game.trade(location):
+                        print("Yay! Your USB is now in your inventory")
+                    else:
+                        print("You try to grab it with your bare hands, but it won't reach.",
+                              "You realize a ruler and some chewed up gum might help...")
 
         print("\n================\n")
 
@@ -325,3 +373,14 @@ if __name__ == "__main__":
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
               "Better luck next time.")
+
+"""
+to-dos
+- score saving
+- score for getting message
+- lots of text to make things make more sense
+- clean up code
+- can search anytime -> grabbing is optional though
+- can drop items
+- weights
+"""
