@@ -235,7 +235,7 @@ class AdventureGame:
         else:
             print("You do not have the required items to submit your project yet.")
 
-    def puzzle(self) -> bool:
+    def puzzle(lock_combination: list[int]) -> bool:
         """
         Prompts the user to enter the 3-digit locker combination to unlock the locker
 
@@ -247,9 +247,9 @@ class AdventureGame:
         for combo in range(3):
             print(suffixes[combo] + " digit: ")
             user_ans = input()
-            #In case they entire no digit
-            if user_ans != '':
-                user_answer.append(int(input()))
+            # In case they entire no digit
+            if user_ans.strip() != '':
+                user_answer.append(int(user_ans))
 
         return user_answer == combination
 
@@ -363,7 +363,7 @@ if __name__ == "__main__":
                 elif choice == "submit project":
                     game.submit(location)
                 elif choice == "open locker":
-                    if game.puzzle():
+                    if game.puzzle(combination):
                         print("The lock opens!")
                         game.interact(location, choice)
                     else:
