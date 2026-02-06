@@ -132,7 +132,9 @@ class AdventureGame:
             print("Your current inventory is empty.")
             return
         for item in self.current_inv:
-            print("-", item.name)
+            print("-", item.name, " : ", item.weight, "g", sep="")
+
+        print("Total weight: ", sum([item.weight for item in self.current_inv]), "/", self.MAX_WEIGHT, sep="")
 
         specific_item = input("\nInput object to select, or 'nothing': ").strip().lower()
         if specific_item == 'nothing':
@@ -353,7 +355,7 @@ if __name__ == "__main__":
                     game.search(location)
                 elif choice == "trade":
                     game.trade(location)
-                elif choice == "interact":
+                elif choice == "ask lost and found":
                     game.interact(location)
                 elif choice == "submit project":
                     game.submit(location)
@@ -380,11 +382,6 @@ if __name__ == "__main__":
 
 """
 to-dos
-- score saving
-- score for getting message
-- lots of text to make things make more sense
+- make score real
 - clean up code
-- can search anytime -> grabbing is optional though
-- can drop items
-- weights
 """

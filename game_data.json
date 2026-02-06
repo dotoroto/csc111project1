@@ -24,7 +24,7 @@
         "go east": 8,
         "go west": 1,
         "go south": 3,
-        "interact": -1
+        "ask lost and found": -1
       },
       "items": [],
       "enter_requirement": "",
