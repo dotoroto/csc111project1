@@ -133,6 +133,7 @@ class AdventureGame:
             print("-", item.name)
 
     def search(self, given_location: Location) -> None:
+        """Check what items are in the location and pick it up"""
         if len(given_location.items) > 0:
             grabbable_item = game.get_item(given_location.items[0])
             self.score += grabbable_item.target_points
@@ -144,7 +145,19 @@ class AdventureGame:
             if len(given_location.items) == 0:
                 given_location.available_commands.pop("search")
 
-    def trade(self, given_location: Location) -> None:
+    def display_map(self):
+        print("+---+---+---+---+----+")
+        print("| 1 | 2 | 8 | 9 | 10 |")
+        print("    +---+---+---+---+----+")
+        print("    | 3 |           | 11 |")
+        print("    +---+           +----+")
+        print("    | 4 |           | 12 |")
+        print("+---+---+---+       +----+")
+        print("| 6 | 5 | 7 |")
+        print("+---+---+---+")
+
+
+    def trade(self, given_location: Location) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
         give_items = given_location.interaction[0]
