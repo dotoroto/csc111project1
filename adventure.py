@@ -178,6 +178,17 @@ class AdventureGame:
         else:
             print("You find nothing :(")
 
+    def display_map(self):
+        print("+---+---+---+---+----+")
+        print("| 1 | 2 | 8 | 9 | 10 |")
+        print("    +---+---+---+---+----+")
+        print("    | 3 |           | 11 |")
+        print("    +---+           +----+")
+        print("    | 4 |           | 12 |")
+        print("+---+---+---+       +----+")
+        print("| 6 | 5 | 7 |")
+        print("+---+---+---+")
+
     def trade(self, loc: Location) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
