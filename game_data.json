@@ -8,7 +8,6 @@
       "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced \nlaptop charger, USB drive, and your lucky mug. Find them before it’s too late and come back \nto submit your project. To your east is Robarts Commons.\n",
       "available_commands": {
         "go east": 2,
-        "search": -1,
         "submit project": -1
       },
       "items": ["toonie", "tcard"],
@@ -120,8 +119,7 @@
       "long_description": "",
       "available_commands": {
         "go east": 10,
-        "go west": 8,
-        "search": -1
+        "go west": 8
       },
       "items": ["gum"],
       "enter_requirement": "",
@@ -134,8 +132,7 @@
       "long_description": "",
       "available_commands": {
         "go west": 9,
-        "go south": 11,
-        "search": -1
+        "go south": 11
       },
       "items": ["ruler"],
       "enter_requirement": "",

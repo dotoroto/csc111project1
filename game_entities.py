@@ -43,7 +43,7 @@ class Location:
     name: str
     brief_description: str
     long_description: str
-    available_commands: dict[str, int | str]
+    available_commands: dict[str, int]
     items: list[str]
     enter_requirement: str
     interaction: list[Any]
@@ -72,6 +72,7 @@ class Item:
     name: str
     description: str
     target_points: int
+    weight: float
 
 
 # Note: Other entities you may want to add, depending on your game plan:
