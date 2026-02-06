@@ -10,7 +10,7 @@
         "go east": 2,
         "submit project": -1
       },
-      "items": ["toonie", "tcard"],
+      "items": ["toonie"],
       "enter_requirement": "",
       "interaction": [["usb drive", "laptop charger", "lucky mug"], "win"]
     },
