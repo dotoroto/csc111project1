@@ -84,7 +84,7 @@
       },
       "items": [""],
       "enter_requirement": "",
-      "interaction": [["loonie"], ["score"]]
+      "interaction": [["loonie"], ["bubble tea"]]
     },
     {
       "id": 7,
@@ -120,7 +120,8 @@
       "long_description": "",
       "available_commands": {
         "go east": 10,
-        "go west": 8
+        "go west": 8,
+        "search": -1
       },
       "items": ["gum"],
       "enter_requirement": "",
@@ -133,7 +134,8 @@
       "long_description": "",
       "available_commands": {
         "go west": 9,
-        "go south": 11
+        "go south": 11,
+        "search": -1
       },
       "items": ["ruler"],
       "enter_requirement": "",
@@ -213,7 +215,7 @@
       "target_points": 3
     },
     {
-      "name": "cryptic message item",
+      "name": "cipher message item",
       "description": "An old piece of paper with some scribbled writing. I wonder who left it there.",
       "target_points": 3
     },
@@ -226,6 +228,11 @@
       "name": "ruler",
       "description": "A strong durable ruler. It seems like it would work well to pry up heavy objects.",
       "target_points": 1
+    },
+    {
+      "name": "bubble tea",
+      "description": "A nice refreshing drink!",
+      "target_points": 5
     }
   ]
 }

@@ -28,8 +28,6 @@ from event_logger import Event, EventList
 import random
 
 # Note: You may add helper functions, classes, etc. below as needed
-LOCK_CODE = random.randint(1000, 9999)
-CRYPIC_MESSAGE = hex(LOCK_CODE)
 
 
 class AdventureGame:
@@ -171,7 +169,8 @@ class AdventureGame:
             self.current_inv.append(self.get_item(item))
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
-        given_location.available_commands.pop("interact")
+        if "interact" in given_location.available_commands:
+            given_location.available_commands.pop("interact")
 
     def submit(self, given_location) -> None:
         """If possible, user submits projects and wins if they completed the requirements.
@@ -231,7 +230,7 @@ if __name__ == "__main__":
     cryptic_message = [hex(num).upper() for num in combination]
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing and moves < 40:
+    while game.ongoing and moves < 45:
         # Note: If the loop body is getting too long, you should split the body up into helper functions
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
@@ -244,7 +243,7 @@ if __name__ == "__main__":
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        print("You are at", location.name)
+        print(location.id_num, "You are at", location.name)
         if location.visited:
             print(location.brief_description)
         else:
@@ -275,10 +274,12 @@ if __name__ == "__main__":
             elif choice == "inventory":
                 print("Your current inventory:")
                 game.display_inv()
-                inspect = input("Input object name to inspect, or 'no' if not: ").strip().lower()
+                inspect = input("\nInput object name to inspect, or 'no' if not: ").strip().lower()
                 if inspect != 'no':
                     if game.get_item(inspect) in game.current_inv:
                         print(game.get_item(inspect).description)
+                        if inspect == 'cipher message item':
+                            print("It seems to have some writing:", cryptic_message)
                     else:
                         print("That was not a valid object.")
             elif choice == "score":
@@ -314,7 +315,10 @@ if __name__ == "__main__":
                     game.submit(location)
                 elif choice == "open locker":
                     if game.puzzle():
-                        game.interact()
+                        print("The lock opens!")
+                        game.interact(location)
+                    else:
+                        print("The combination was incorrect.")
                 elif choice == "grab USB":
                     if game.trade(location):
                         print("Yay! Your USB is now in your inventory")
@@ -325,8 +329,17 @@ if __name__ == "__main__":
 
         print("\n================\n")
 
-    if moves >= 40:
+    if moves >= 45:
         print("You have exceeded the maximum amount of moves.",
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
               "Better luck next time.")
+
+
+"""
+to-dos
+- score saving
+- score for getting message
+- lots of text to make things make more sense
+- clean up code
+"""
