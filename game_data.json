@@ -8,7 +8,6 @@
       "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced laptop charger, USB drive, and your lucky mug. \nFind them before it’s too late and come back to submit your project. To your east is Robarts Commons.\n",
       "available_commands": {
         "go east": 2,
-        "search": -1,
         "submit project": -1
       },
       "items": ["toonie", "tcard"],
@@ -128,8 +127,7 @@
       "post_item_grab_description": "You are on the first floor of McLennan. You remember coming here 3 times a week for your MAT137 lectures, running into the building to secure a seat, \notherwise you would need to sit on the stairs again… \nWest is the Sidney Smith Hall, and east is Myhal.\n",
       "available_commands": {
         "go east": 10,
-        "go west": 8,
-        "search": -1
+        "go west": 8
       },
       "items": ["gum"],
       "enter_requirement": "",
@@ -143,8 +141,7 @@
       "post_item_grab_description": "You are on the 2nd floor of Myhal, the engineering building. They have a lot of robot arms, tools, and other knick-knacks here. There is nothing left to do here. \nWest is Mclennan, and south is Bahen.\n",
       "available_commands": {
         "go west": 9,
-        "go south": 11,
-        "search": -1
+        "go south": 11
       },
       "items": ["ruler"],
       "enter_requirement": "",
