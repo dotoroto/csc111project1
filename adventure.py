@@ -235,7 +235,7 @@ class AdventureGame:
         else:
             print("You do not have the required items to submit your project yet.")
 
-    def puzzle(lock_combination: list[int]) -> bool:
+    def puzzle(self, lock_combination: list[int]) -> bool:
         """
         Prompts the user to enter the 3-digit locker combination to unlock the locker
 
@@ -251,7 +251,7 @@ class AdventureGame:
             if user_ans.strip() != '':
                 user_answer.append(int(user_ans))
 
-        return user_answer == combination
+        return user_answer == lock_combination
 
 
 if __name__ == "__main__":
@@ -282,6 +282,7 @@ if __name__ == "__main__":
         combination.append(num)
     # Change to hexadecimal
     cryptic_message = [hex(num).upper() for num in combination]
+    print(combination)
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
     while game.ongoing and moves < 45:
