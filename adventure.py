@@ -248,7 +248,7 @@ class AdventureGame:
             print(suffixes[combo] + " digit: ")
             user_ans = input()
             # In case they entire no digit
-            if user_ans.strip() != '':
+            if user_ans.strip() != '' and user_ans.isdigit():
                 user_answer.append(int(user_ans))
 
         return user_answer == lock_combination
