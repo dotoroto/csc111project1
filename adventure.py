@@ -179,6 +179,7 @@ class AdventureGame:
             print("You find nothing :(")
 
     def display_map(self):
+        """Display ASCII map when called"""
         print("+---+---+---+---+----+")
         print("| 1 | 2 | 8 | 9 | 10 |")
         print("+---+---+---+---+----+")
