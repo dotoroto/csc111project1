@@ -194,7 +194,7 @@ class AdventureGame:
         print("| 6 | 5 | 7 |")
         print("+---+---+---+")
 
-    def trade(self, loc: Location) -> bool:
+    def trade(self, loc: Location, cmd: str) -> bool:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
         given_items = loc.interaction[0]
@@ -208,21 +208,20 @@ class AdventureGame:
                 self.current_inv.append(self.get_item(item))
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
-            loc.available_commands.pop("trade")
+            loc.available_commands.pop(cmd)
             return True
         else:
             print("You do not have the required items to complete this action.")
             return False
 
-    def interact(self, loc: Location) -> None:
+    def interact(self, loc: Location, cmd: str) -> None:
         """Give user items from the interaction at a specified location."""
         recieve_item = loc.interaction
         for item in recieve_item:
             self.current_inv.append(self.get_item(item))
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
-        if "interact" in loc.available_commands:
-            loc.available_commands.pop("interact")
+        loc.available_commands.pop(cmd)
 
     def submit(self, loc) -> None:
         """If possible, user submits projects and wins if they completed the requirements.
@@ -353,20 +352,21 @@ if __name__ == "__main__":
             else:
                 if choice == "search":
                     game.search(location)
-                elif choice == "trade":
-                    game.trade(location)
+                elif choice in ["trade coins", "buy boba", "give chocolate", "enter janitor's closed",
+                                "use vending machine", "get usb drive"]:
+                    game.trade(location, choice)
                 elif choice == "ask lost and found":
-                    game.interact(location)
+                    game.interact(location, choice)
                 elif choice == "submit project":
                     game.submit(location)
                 elif choice == "open locker":
                     if game.puzzle():
                         print("The lock opens!")
-                        game.interact(location)
+                        game.interact(location, choice)
                     else:
                         print("The combination was incorrect.")
                 elif choice == "grab USB":
-                    if game.trade(location):
+                    if game.trade(location, choice):
                         print("Yay! Your USB is now in your inventory")
                     else:
                         print("You try to grab it with your bare hands, but it won't reach.",

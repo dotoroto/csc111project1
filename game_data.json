@@ -54,7 +54,7 @@
       "available_commands": {
         "go north": 3,
         "go south": 5,
-        "trade": -1
+        "trade coins": -1
       },
       "items": [],
       "enter_requirement": "",
@@ -70,7 +70,7 @@
         "go east": 7,
         "go west": 6,
         "go north": 4,
-        "trade": -1
+        "give chocolate": -1
       },
       "items": [],
       "enter_requirement": "",
@@ -84,7 +84,7 @@
       "post_item_grab_description": "You are on the 2nd floor of the Medical Sciences building. There is a strong aroma from tea, getting that drink was the right choice after a hard day of \nlooking around for your misplaced items. \nEast is the Health Sciences building.\n",
       "available_commands": {
         "go east": 5,
-        "trade": -1
+        "buy boba": -1
       },
       "items": [],
       "enter_requirement": "",
@@ -98,7 +98,7 @@
       "post_item_grab_description": "You are in Starbucks. The smell of coffee fills your nose, there are people in line to get their daily dose of coffee, and 3 baristas behind the counter. \nWest is to the Health Sciences Building.\n",
       "available_commands": {
         "go west": 5,
-        "trade": -1
+        "enter janitor's closet": -1
       },
       "items": [],
       "enter_requirement": "",
@@ -113,7 +113,7 @@
       "available_commands": {
         "go east": 9,
         "go west": 2,
-        "trade": -1
+        "use vending machine": -1
       },
       "items": [],
       "enter_requirement": "",
@@ -169,7 +169,7 @@
       "post_item_grab_description": "You are in Gerstein Library, a pretty nice place to study and concentrate on work you need to finish. You found the USB drive here containing the \nentirety of your project under the cabinet. North is Bahen.\n",
       "available_commands": {
         "go north": 11,
-        "trade": -1
+        "get usb drive": -1
       },
       "items": [],
       "enter_requirement": "",
