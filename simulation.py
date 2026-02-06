@@ -51,11 +51,11 @@ class AdventureGameSimulation:
         # TODO: Add first event (initial location, no previous command)
         # Hint: self._game.get_location() gives you back the current location
         start_loc = self._game.get_location(initial_location_id)
-        self._events.add_event(Event(start_loc.id_num, start_loc.description), None)
+        self._events.add_event(Event(start_loc.id_num, start_loc.brief_description), None)
 
         # TODO: Generate the remaining events based on the commands and initial location
         # Hint: Call self.generate_events with the appropriate arguments
-        self.generate_events(commands, initial_location_id)
+        self.generate_events(commands, self._game.get_location(initial_location_id))
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """
@@ -73,7 +73,7 @@ class AdventureGameSimulation:
         for command in commands:
             new_loc_id = loc.available_commands[command]
             new_loc = self._game.get_location(new_loc_id)
-            new_event = Event(new_loc_id, new_loc.description)
+            new_event = Event(new_loc_id, new_loc.brief_description)
             self._events.add_event(new_event, command)
             loc = new_loc
 
@@ -114,8 +114,47 @@ if __name__ == "__main__":
     # })
 
     # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
-    win_walkthrough = []  # Create a list of all the commands needed to walk through your game to win it
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
+    win_walkthrough = [""]  # Create a list of all the commands needed to walk through your game to win it
+    expected_log = [
+        "Location: 1, Command: search - toonie picked up",
+        "Location: 1, Command: go east sucessfully",
+        "Location: 2, Command: go south sucessfully",
+        "Location: 3, Command: go south sucessfully",
+        "Location: 4, Command: trade coins sucessfully",
+        "Location: 4, Command: go north sucessfully",
+        "Location: 3, Command: go north sucessfully",
+        "Location: 2, Command: go east sucessfully",
+        "Location: 8, Command: use vending machine sucessfully",
+        "Location: 8, Command: go west sucessfully",
+        "Location: 2, Command: go south sucessfully",
+        "Location: 3, Command: go south sucessfully",
+        "Location: 4, Command: go south sucessfully",
+        "Location: 5, Command: give chocolate sucessfully",
+        "Location: 5, Command: go east sucessfully",
+        "Location: 7, Command: enter janitor's closet sucessfully",
+        "Location: 7, Command: go west sucessfully",
+        "Location: 5, Command: go north sucessfully",
+        "Location: 4, Command: go north sucessfully",
+        "Location: 3, Command: inventory cryptic message - inspect",
+        "Location: 3, Command: open locker succesfully",
+        "Location: 3, Command: go north sucessfully",
+        "Location: 2, Command: go east sucessfully",
+        "Location: 8, Command: go east sucessfully",
+        "Location: 9, Command: search - gum picked up",
+        "Location: 9, Command: go east sucessfully",
+        "Location: 10, Command: search - ruler picked up",
+        "Location: 10, Command: go south sucessfully",
+        "Location: 11, Command: go south sucessfully",
+        "Location: 12, Command: get usb drive sucessfully",
+        "Location: 12, Command: go north sucessfully",
+        "Location: 11, Command: go north sucessfully",
+        "Location: 10, Command: go west sucessfully",
+        "Location: 9, Command: go west sucessfully",
+        "Location: 8, Command: go west sucessfully",
+        "Location: 2, Command: ask lost and found",
+        "Location: 2, Command: go west sucessfully",
+        "Location: 1, Command: submit project sucessfully"
+    ]  # Update this log list to include the IDs of all locations that would be visited
     # Uncomment the line below to test your walkthrough
     sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
     assert expected_log == sim.get_id_log()
