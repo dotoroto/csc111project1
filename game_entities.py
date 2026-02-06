@@ -47,7 +47,9 @@ class Location:
     items: list[str]
     enter_requirement: str
     interaction: list[Any]
+    post_action_description: str
     visited: bool = False
+    action_completed: bool = False
 
 
 @dataclass

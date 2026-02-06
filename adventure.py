@@ -94,7 +94,8 @@ class AdventureGame:
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
-                                    loc_data['enter_requirement'], loc_data['interaction'])
+                                    loc_data['enter_requirement'], loc_data['interaction'],
+                                    loc_data['post_item_grab_description'])
             location_obj.available_commands["search"] = -1
             locations[loc_data['id']] = location_obj
 
@@ -186,6 +187,7 @@ class AdventureGame:
                     self.current_inv.append(self.get_item(pickup))
                     loc.items.remove(pickup)
                     print("You successfully picked up " + pickup)
+                    loc.action_completed = True
                     return " - " + pickup + " picked up"
             else:
                 print("That was not an available item.")
@@ -222,6 +224,7 @@ class AdventureGame:
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
             loc.available_commands.pop(cmd)
+            loc.action_completed = True
             return True
         else:
             print("You do not have the required items to complete this action.")
@@ -235,6 +238,7 @@ class AdventureGame:
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
         loc.available_commands.pop(cmd)
+        loc.action_completed = True
 
     def submit(self, loc) -> bool:
         """If possible, user submits projects and wins if they completed the requirements.
@@ -247,6 +251,7 @@ class AdventureGame:
             print("Congratulations, you submitted your project on time! You cheer and celebrate.",
                   "Hopefully you get an 100%! Your score is:", self.score)
             self.ongoing = False
+            loc.action_completed = True
             return True
         else:
             print("You do not have the required items to submit your project yet.")
@@ -317,7 +322,10 @@ if __name__ == "__main__":
         print(moves, "/45 location movements remaining", sep="")
         print("You are at ", location.name, " (", location.id_num, ")", sep="")
         if location.visited:
-            print(location.brief_description)
+            if location.action_completed:
+                print(location.post_action_description)
+            else:
+                print(location.brief_description)
         else:
             print(location.long_description)
             location.visited = True
