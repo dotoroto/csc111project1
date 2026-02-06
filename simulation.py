@@ -141,10 +141,10 @@ if __name__ == "__main__":
     sim = AdventureGameSimulation('game_data.json', 1, lose_demo)
     assert expected_log == sim.get_id_log()
 
-    inventory_demo = ["inventory", "search", "inventory", "go east"]
-    # Shows what inventory looks like before v. after picking up a toonie
+    inventory_weight_demo = ["inventory", "search", "inventory", "go east"]
+    # Shows what inventory looks like before v. after picking up a toonie and includes weight
     expected_log = [1, 1, 1, 1, 2]
-    sim = AdventureGameSimulation('game_data.json', 1, inventory_demo)
+    sim = AdventureGameSimulation('game_data.json', 1, inventory_weight_demo)
     assert expected_log == sim.get_id_log()
 
     scores_demo = ["search", "go east", "ask lost and found", "score"]
