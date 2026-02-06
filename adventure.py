@@ -355,7 +355,7 @@ if __name__ == "__main__":
             else:
                 if choice == "search":
                     game.search(location)
-                elif choice in ["trade coins", "buy boba", "give chocolate", "enter janitor's closed",
+                elif choice in ["trade coins", "buy boba", "give chocolate", "enter janitor's closet",
                                 "use vending machine", "get usb drive"]:
                     game.trade(location, choice)
                 elif choice == "ask lost and found":
