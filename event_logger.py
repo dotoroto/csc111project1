@@ -26,6 +26,9 @@ from dataclasses import dataclass
 from typing import Optional
 
 
+# TODO: Copy/paste your A1 event_logger code below, and modify it if needed to fit your game
+
+
 @dataclass
 class Event:
     """
@@ -50,10 +53,13 @@ class EventList:
     A linked list of game events.
 
     Instance Attributes:
-        - # TODO add descriptions of instance attributes here
+        - first: The first game event in the event list
+        - last: The last game event in the event list
 
     Representation Invariants:
-        - # TODO add any appropriate representation invariants, if needed
+        - (self.first is None) == (self.last is None)
+        - not(self.first is not None) or self.first.prev is None
+        - not(self.last is not None) or self.last.next is None
     """
     first: Optional[Event]
     last: Optional[Event]
@@ -71,8 +77,11 @@ class EventList:
             print(f"Location: {curr.id_num}, Command: {curr.next_command}")
             curr = curr.next
 
+    # TODO: Complete the methods below, based on the given descriptions.
     def is_empty(self) -> bool:
         """Return whether this event list is empty."""
+
+        # TODO: Your code below
         return self.first is None
 
     def add_event(self, event: Event, command: str = None) -> None:
@@ -81,10 +90,15 @@ class EventList:
         The given command is the command which was used to reach this new event, or None if this is the first
         event in the game.
         """
+        # Hint: You should update the previous node's <next_command> as needed
+
+        # TODO: Your code below
         if self.is_empty():
             self.first = event
 
         else:
+            # Based on representation invariants, I can assume that
+            # last != None because if self.is_empty() then self.first is None so self.last is None
             self.last.next = event
             self.last.next_command = command
             event.prev = self.last
@@ -95,6 +109,9 @@ class EventList:
         Remove the last event from this event list.
         If the list is empty, do nothing.
         """
+        # Hint: The <next_command> and <next> attributes for the new last event should be updated as needed
+
+        # TODO: Your code below
         if self.is_empty():
             return
 
@@ -109,6 +126,8 @@ class EventList:
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
+
+        # TODO: Your code below
         curr = self.first
         id_log = []
         while curr is not None:
