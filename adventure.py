@@ -102,8 +102,8 @@ class AdventureGame:
         # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
         # YOUR CODE BELOW
         for item_data in data['items']:  # Go through each element associated with the 'locations' key in the file
-            item_obj = Item(item_data['name'], item_data['description'], item_data['target_points']
-                            , item_data['weight'])
+            item_obj = Item(item_data['name'], item_data['description'], item_data['target_points'],
+                            item_data['weight'])
             items.append(item_obj)
 
         return locations, items
@@ -165,7 +165,7 @@ class AdventureGame:
         if len(loc.items) > 0:
             print("You find the following:")
             for item in loc.items:
-                print(item + " - weighs ", self.get_item(item).weight,"g", sep="")
+                print(item + " - weighs ", self.get_item(item).weight, "g", sep="")
 
             pickup = input("\nInput object to pickup, or 'nothing': ").strip().lower()
             if pickup in loc.items:
