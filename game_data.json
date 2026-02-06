@@ -5,6 +5,7 @@
       "name": "Innis Dorm Room",
       "brief_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your \nmisplaced laptop charger, USB drive, and your lucky mug. Find them before it’s \ntoo late and come back to submit your project. To your east is Robarts Commons.\n",
       "long_description": "You are in your dorm room about to submit your first-year CS project, but in your \nsleep-deprived state you didn’t realize that you are missing some key items. \nYour USB drive (the only copy of your game, because of course you forgot to back \nit up), your laptop charger (your battery was at 5% when you sat down), and—worst \nof all—your lucky U of T mug. You need to find them before the deadline. \nYou pick up your TCard on the desk, probably need that. You also see something \nshiny on the ground -- looks like a toonie? To your east is Robarts Commons.\n",
+      "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your \nmisplaced laptop charger, USB drive, and your lucky mug. Find them before \nit’s too late and come back to submit your project. To your east is Robarts Commons.\n",
       "available_commands": {
         "go east": 2,
         "search": -1,
