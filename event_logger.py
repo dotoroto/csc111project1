@@ -70,7 +70,7 @@ class EventList:
     def display_events(self) -> None:
         """Display all events in chronological order."""
         curr = self.first
-        while curr:
+        while curr.next:
             print(f"Location: {curr.id_num}, Command: {curr.next_command}")
             curr = curr.next
 

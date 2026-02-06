@@ -102,7 +102,7 @@
       },
       "items": [],
       "enter_requirement": "",
-      "interaction": [["janitor closet key"], ["cipher message item"]]
+      "interaction": [["janitor closet key"], ["cryptic message"]]
     },
     {
       "id": 8,

@@ -126,11 +126,14 @@ class AdventureGame:
                 return item
         return None
 
-    def interact_inv(self):
-        """Prints the current items that the user has in their inventory and the description of each item"""
+    def interact_inv(self) -> str:
+        """Prints the current items that the user has in their inventory and the description of each item
+        Allows user to select an item and interact.
+        Returns item selected and action performed in format 'item_name - action', and nothing otherwise
+        """
         if len(self.current_inv) == 0:
             print("Your current inventory is empty.")
-            return
+            return ""
         for item in self.current_inv:
             print("-", item.name, " : ", item.weight, "g", sep="")
 
@@ -138,11 +141,11 @@ class AdventureGame:
 
         specific_item = input("\nInput object to select, or 'nothing': ").strip().lower()
         if specific_item == 'nothing':
-            return
+            return ""
 
         if self.get_item(specific_item) not in self.current_inv:
             print("That was not a valid object.")
-            return
+            return ""
 
         print("You can inspect or drop or neither")
         action = input("What action would you like to perform: ").strip().lower()
@@ -150,18 +153,23 @@ class AdventureGame:
         if action == "inspect":
             print(self.get_item(specific_item).description)
             print(specific_item, "weighs", self.get_item(specific_item).weight)
-            if specific_item == 'cipher message item':
+            if specific_item == 'cryptic message':
                 print("It seems to have some writing:", cryptic_message)
+            return specific_item + " - " + action
         elif action == "drop":
             self._locations[self.current_location_id].items.append(specific_item)
             self.current_inv.remove(self.get_item(specific_item))
+            return specific_item + " - " + action
         elif action == "neither":
-            return
+            return ""
         else:
             print("That was not a valid option.")
+            return ""
 
-    def search(self, loc: Location) -> None:
-        """Displays items at given location, and prompts if user wants to pick it up"""
+    def search(self, loc: Location) -> str:
+        """Displays items at given location, and prompts if user wants to pick it up.
+        If picked up, returns name of item picked up.
+        """
         if len(loc.items) > 0:
             print("You find the following:")
             for item in loc.items:
@@ -173,14 +181,19 @@ class AdventureGame:
                 if current_weight + self.get_item(pickup).weight > self.MAX_WEIGHT:
                     print("You can't pick this item up. You're already carrying too much... "
                           "Drop something and try again")
+                    return ""
                 else:
                     self.current_inv.append(self.get_item(pickup))
                     loc.items.remove(pickup)
+                    print("You successfully picked up " + pickup)
+                    return " - " + pickup + " picked up"
             else:
                 print("That was not an available item.")
+                return ""
 
         else:
             print("You find nothing :(")
+            return ""
 
     def display_map(self) -> None:
         """Display ASCII map of game"""
@@ -223,17 +236,21 @@ class AdventureGame:
             print("You now have", item, "in your inventory")
         loc.available_commands.pop(cmd)
 
-    def submit(self, loc) -> None:
+    def submit(self, loc) -> bool:
         """If possible, user submits projects and wins if they completed the requirements.
         Otherwise, tell them they can't submit yet."""
         give_items = loc.interaction[0]
         all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
         if all_give_items_exist:
+            if self.get_item("bubble tea") in self.current_inv:
+                self.score += self.get_item("bubble tea").target_points
             print("Congratulations, you submitted your project on time! You cheer and celebrate.",
                   "Hopefully you get an 100%! Your score is:", self.score)
             self.ongoing = False
+            return True
         else:
             print("You do not have the required items to submit your project yet.")
+            return False
 
     def puzzle(self, lock_combination: list[int]) -> bool:
         """
@@ -297,6 +314,7 @@ if __name__ == "__main__":
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
+        print(moves, "/45 location movements remaining", sep="")
         print("You are at ", location.name, " (", location.id_num, ")", sep="")
         if location.visited:
             print(location.brief_description)
@@ -327,7 +345,7 @@ if __name__ == "__main__":
                 print(location.long_description)
             elif choice == "inventory":
                 print("Your current inventory:")
-                game.interact_inv()
+                choice += " " + game.interact_inv()
             elif choice == "map":
                 game.display_map()
             elif choice == "score":
@@ -345,35 +363,48 @@ if __name__ == "__main__":
                 if key_needed == '':
                     game.current_location_id = result
                     moves += 1
+                    choice += " sucessfully"
                 else:
                     if game.get_item(key_needed) in game.current_inv:
                         print("You use your", key_needed, "and go in.")
                         game.current_location_id = result
                         moves += 1
+                        choice += " sucessfully"
                     else:
                         print("You need a", key_needed, "to enter.")
+                        choice += " failed"
             else:
                 if choice == "search":
-                    game.search(location)
+                    choice += game.search(location)
                 elif choice in ["trade coins", "buy boba", "give chocolate", "enter janitor's closet",
                                 "use vending machine", "get usb drive"]:
-                    game.trade(location, choice)
+                    if game.trade(location, choice):
+                        choice += " sucessfully"
+                    else:
+                        choice += " failed"
                 elif choice == "ask lost and found":
                     game.interact(location, choice)
                 elif choice == "submit project":
-                    game.submit(location)
+                    if game.submit(location):
+                        choice += " succesfully"
+                    else:
+                        choice += " failed"
                 elif choice == "open locker":
                     if game.puzzle(combination):
                         print("The lock opens!")
                         game.interact(location, choice)
+                        choice += " succesfully"
                     else:
                         print("The combination was incorrect.")
+                        choice += " failed"
                 elif choice == "grab USB":
                     if game.trade(location, choice):
                         print("Yay! Your USB is now in your inventory")
+                        choice += " succesfully"
                     else:
                         print("You try to grab it with your bare hands, but it won't reach.",
                               "You realize a ruler and some chewed up gum might help...")
+                        choice += " failed"
 
         print("\n================\n")
 
@@ -382,9 +413,3 @@ if __name__ == "__main__":
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
               "Better luck next time.")
-
-"""
-to-dos
-- make score real
-- clean up code
-"""
