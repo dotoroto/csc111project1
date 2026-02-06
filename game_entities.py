@@ -27,18 +27,34 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
+        - id_num: A unique non-negative integer identifying this location.
+        - name: The name of the location shown to the player.
+        - brief_description: A short description displayed after the location has
+            already been visited.
+        - long_description: A detailed description displayed the first time the
+            player enters the location or when the 'look' command is used.
+        - available_commands: A mapping from direction strings ('north', 'south',
+            'east', 'west') to location id numbers indicating where the player
+            moves when using a 'go' command.
+        - items: A list of item names currently present at this location.
+        - enter_requirement: A condition that must be satisfied for the player
+            to enter this location (e.g., possessing a specific item), or an
+            empty string if there is no requirement.
+        - interaction: A list of interactions or actions that can occur at this
+            location.
+        - post_action_description: A description displayed after the location’s
+            main interaction has been completed.
+        - visited: Whether the player has visited this location before.
+        - action_completed: Whether the location’s main interaction or puzzle
+            has been completed.
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - id_num >= 0
+        - available_commands maps valid direction strings to valid location IDs
+        - visited and action_completed are boolean values
+        - items contains only item names (strings)
+        - enter_requirement is either an empty string or a valid item name
     """
-
-    # This is just a suggested starter class for Location.
-    # You may change/add parameters and the data available for each Location object as you see fit.
-    #
-    # The only thing you must NOT change is the name of this class: Location.
-    # All locations in your game MUST be represented as an instance of this class.
-
     id_num: int
     name: str
     brief_description: str
@@ -57,30 +73,23 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
+        - name: The name of the item.
+        - description: A description of the item shown to the player.
+        - target_points: The number of points awarded when the item is correctly
+            used or deposited at its target location.
+        - weight: The weight of the item, used to limit how many items the player
+            can carry.
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - name != ''
+        - target_points >= 0
+        - weight >= 0
     """
-
-    # NOTES:
-    # This is just a suggested starter class for Item.
-    # You may change these parameters and the data available for each Item object as you see fit.
-    # (The current parameters correspond to the example in the handout).
-    #
-    # The only thing you must NOT change is the name of this class: Item.
-    # All item objects in your game MUST be represented as an instance of this class.
-
     name: str
     description: str
     target_points: int
     weight: float
 
-
-# Note: Other entities you may want to add, depending on your game plan:
-# - Puzzle class to represent special locations (could inherit from Location class if it seems suitable)
-# - Player class
-# etc.
 
 if __name__ == "__main__":
     pass
