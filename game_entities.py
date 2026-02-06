@@ -29,10 +29,14 @@ class Location:
     Instance Attributes:
         - id_num: A unique non-negative integer identifying this location.
         - name: The name of the location shown to the player.
-        - brief_description: A short description displayed after the location has
+        - descriptions:
+            index 0: The name of the location shown to the player.
+            index 1: A short description displayed after the location has
             already been visited.
-        - long_description: A detailed description displayed the first time the
+            index 2: A detailed description displayed the first time the
             player enters the location or when the 'look' command is used.
+            index 3: A description displayed after the location’s
+            main interaction has been completed.
         - available_commands: A mapping from direction strings ('north', 'south',
             'east', 'west') to location id numbers indicating where the player
             moves when using a 'go' command.
@@ -42,8 +46,6 @@ class Location:
             empty string if there is no requirement.
         - interaction: A list of interactions or actions that can occur at this
             location.
-        - post_action_description: A description displayed after the location’s
-            main interaction has been completed.
         - visited: Whether the player has visited this location before.
         - action_completed: Whether the location’s main interaction or puzzle
             has been completed.
@@ -56,14 +58,11 @@ class Location:
         - enter_requirement is either an empty string or a valid item name
     """
     id_num: int
-    name: str
-    brief_description: str
-    long_description: str
+    descriptions: list[str]
     available_commands: dict[str, int]
     items: list[str]
     enter_requirement: str
     interaction: list[Any]
-    post_action_description: str
     visited: bool = False
     action_completed: bool = False
 
@@ -96,8 +95,8 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
-    # })
+    #import python_ta
+    #python_ta.check_all(config={
+    #    'max-line-length': 120,
+    #    'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
+    #})

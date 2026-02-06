@@ -20,11 +20,10 @@ This file is Copyright (c) 2026 CSC111 Teaching Team
 from __future__ import annotations
 import json
 from typing import Optional
+import random
 
 from game_entities import Location, Item
 from event_logger import Event, EventList
-
-import random
 
 
 class AdventureGame:
@@ -35,7 +34,8 @@ class AdventureGame:
         - current_location_id: the id representing the player's current location
         - ongoing: a boolean that is true when the game is playing and false when the player quits, wins, or loses
         - score: the player's score, increases by picking up items
-        - MAX_WEIGHT: the maximum weight that can be carried by the player
+        - max_weight: the maximum weight that can be carried by the player
+        - max_moves: the maximum number of moves before the player loses
 
     Representation Invariants:
         - current_location_id >= 1
@@ -52,8 +52,8 @@ class AdventureGame:
     current_location_id: int
     ongoing: bool
     score: int
-    MAX_WEIGHT: int = 1100
-    MAX_MOVES: int = 40
+    max_weight: int = 1100
+    max_moves: int = 40
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -83,10 +83,9 @@ class AdventureGame:
 
         locations = {}
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
-                                    loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
-                                    loc_data['enter_requirement'], loc_data['interaction'],
-                                    loc_data['post_item_grab_description'])
+            location_obj = Location(loc_data['id'], loc_data['descriptions'],
+                                    loc_data['available_commands'], loc_data['items'],
+                                    loc_data['enter_requirement'], loc_data['interaction'])
             location_obj.available_commands["search"] = location_obj.id_num
             locations[loc_data['id']] = location_obj
 
@@ -124,7 +123,7 @@ class AdventureGame:
         for item in self.current_inv:
             print("-", item.name, " : ", item.weight, "g", sep="")
 
-        print("Total weight: ", sum([item.weight for item in self.current_inv]), "/", self.MAX_WEIGHT, sep="")
+        print("Total weight: ", sum([i.weight for i in self.current_inv]), "/", self.max_weight, sep="")
 
         specific_item = input("\nInput object to select, or 'nothing': ").strip().lower()
         if specific_item == 'nothing':
@@ -135,19 +134,19 @@ class AdventureGame:
             return ""
 
         print("You can inspect or drop or neither")
-        action = input("What action would you like to perform: ").strip().lower()
+        action_choice = input("What action would you like to perform: ").strip().lower()
 
-        if action == "inspect":
+        if action_choice == "inspect":
             print(self.get_item(specific_item).description)
             print(specific_item, "weighs", self.get_item(specific_item).weight)
             if specific_item == 'cryptic message':
                 print("It seems to have some writing:", cryptic_message)
-            return specific_item + " - " + action
-        elif action == "drop":
+            return specific_item + " - " + action_choice
+        elif action_choice == "drop":
             self._locations[self.current_location_id].items.append(specific_item)
             self.current_inv.remove(self.get_item(specific_item))
-            return specific_item + " - " + action
-        elif action == "neither":
+            return specific_item + " - " + action_choice
+        elif action_choice == "neither":
             return ""
         else:
             print("That was not a valid option.")
@@ -165,7 +164,7 @@ class AdventureGame:
             pickup = input("\nInput object to pickup, or 'nothing': ").strip().lower()
             if pickup in loc.items:
                 current_weight = sum([i.weight for i in self.current_inv])
-                if current_weight + self.get_item(pickup).weight > self.MAX_WEIGHT:
+                if current_weight + self.get_item(pickup).weight > self.max_weight:
                     print("You can't pick this item up. You're already carrying too much... "
                           "Drop something and try again")
                     return ""
@@ -201,7 +200,7 @@ class AdventureGame:
         given_items = loc.interaction[0]
         recieve_item = loc.interaction[1]
 
-        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in given_items])
+        all_give_items_exist = all([self.get_item(i) in self.current_inv for i in given_items])
         if all_give_items_exist:
             for item in given_items:
                 self.current_inv.remove(self.get_item(item))
@@ -226,7 +225,7 @@ class AdventureGame:
         loc.available_commands.pop(cmd)
         loc.action_completed = True
 
-    def submit(self, loc) -> bool:
+    def submit(self, loc: Location) -> bool:
         """If possible, user submits projects and wins if they completed the requirements.
         Otherwise, tell them they can't submit yet."""
         give_items = loc.interaction[0]
@@ -268,8 +267,8 @@ if __name__ == "__main__":
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
     # import python_ta
     # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
+    #    'max-line-length': 120,
+    #    'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
     # })
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
@@ -289,27 +288,27 @@ if __name__ == "__main__":
 
         combination.append(num)
     # Change to hexadecimal
-    cryptic_message = [hex(num).upper() for num in combination]
+    cryptic_message = [hex(val).upper() for val in combination]
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing and moves < game.MAX_MOVES:
+    while game.ongoing and moves < game.max_moves:
         # Note: If the loop body is getting too long, you should split the body up into helper functions
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
         location = game.get_location()
-        game_log.add_event(Event(location.id_num, location.long_description), choice)
+        game_log.add_event(Event(location.id_num, location.descriptions[2]), choice)
 
         # Depending on whether or not it's been visited before, print either full description (first time visit)
         # or brief description (every subsequent visit) of location
-        print(moves, "/", game.MAX_MOVES, " ", "location movements remaining", sep="")
-        print("You are at ", location.name, " (", location.id_num, ")", sep="")
+        print(moves, "/", game.max_moves, " ", "location movements remaining", sep="")
+        print("You are at ", location.descriptions[0], " (", location.id_num, ")", sep="")
         if location.visited:
             if location.action_completed:
-                print(location.post_action_description)
+                print(location.descriptions[3])
             else:
-                print(location.brief_description)
+                print(location.descriptions[1])
         else:
-            print(location.long_description)
+            print(location.descriptions[2])
             location.visited = True
 
         # Display possible actions at this location
@@ -331,7 +330,7 @@ if __name__ == "__main__":
             if choice == "log":
                 game_log.display_events()
             elif choice == "look":
-                print(location.long_description)
+                print(location.descriptions[2])
             elif choice == "inventory":
                 print("Your current inventory:")
                 choice += " " + game.interact_inv()
@@ -397,7 +396,7 @@ if __name__ == "__main__":
 
         print("\n================\n")
 
-    if moves >= game.MAX_MOVES:
+    if moves >= game.max_moves:
         print("You have exceeded the maximum amount of moves.",
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
