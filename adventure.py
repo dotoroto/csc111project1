@@ -24,11 +24,12 @@ from typing import Optional
 from game_entities import Location, Item
 from event_logger import Event, EventList
 
+
+
 # Note: You may add in other import statements here as needed
 import random
 
-# Note: You may add helper functions, classes, etc. below as needed
-
+# Note: You may add helper functions, classes, etc. below as needed)
 
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
@@ -52,6 +53,7 @@ class AdventureGame:
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
     score: int
+    
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -77,7 +79,7 @@ class AdventureGame:
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
         self.score = 0
-        self.current_inv = []
+
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -142,25 +144,23 @@ class AdventureGame:
             if len(given_location.items) == 0:
                 given_location.available_commands.pop("search")
 
-    def trade(self, given_location: Location) -> bool:
+    def trade(self, given_location: Location) -> None:
         """Check if user has item required for trade at given location.
         If they do, complete the trade and print what has happened."""
-        given_items = given_location.interaction[0]
+        give_items = given_location.interaction[0]
         recieve_item = given_location.interaction[1]
 
-        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in given_items])
+        all_give_items_exist = all([self.get_item(item) in self.current_inv for item in give_items])
         if all_give_items_exist:
-            for item in given_items:
+            for item in give_items:
                 self.current_inv.remove(self.get_item(item))
             for item in recieve_item:
                 self.current_inv.append(self.get_item(item))
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
             given_location.available_commands.pop("trade")
-            return True
         else:
             print("You do not have the required items to complete this action.")
-            return False
 
     def interact(self, given_location: Location) -> None:
         """Give user items from the interaction at a specified location."""
@@ -169,8 +169,7 @@ class AdventureGame:
             self.current_inv.append(self.get_item(item))
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
-        if "interact" in given_location.available_commands:
-            given_location.available_commands.pop("interact")
+        given_location.available_commands.pop("interact")
 
     def submit(self, given_location) -> None:
         """If possible, user submits projects and wins if they completed the requirements.
@@ -183,23 +182,24 @@ class AdventureGame:
             self.ongoing = False
         else:
             print("You do not have the required items to submit your project yet.")
+            print("You do not have the required items to complete this action.")
 
-    def puzzle(self) -> bool:
+    def puzzle(lock_combination: list[int]) -> bool:
         """
         Prompts the user to enter the 3-digit locker combination to unlock the locker
 
         Note: The 3 digits come from the crypti message which is in hexadecimal
         """
         user_answer = []
-        print("Huh, you need 3 numbers to unlock it...where could you get this? (please reword)")
+        print("Huh, you need 3 numbers to unlock it...I wonder where you've seen this before?")
         suffixes = ["1st", "2nd", "3rd"]
-        for combo in range(3):
-            print(suffixes[combo] + " digit: ")
+        for i in range(0,3):
+            print(suffixes[i] + " digit: ")
             user_answer.append(int(input()))
-
-        return user_answer == combination
-
-
+        
+        return user_answer == lock_combination
+        
+    
 if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
@@ -214,23 +214,22 @@ if __name__ == "__main__":
     game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
     menu = ["look", "inventory", "score", "log", "quit"]  # Regular menu options available at each location
     choice = None
-    moves = 0
 
     # We generate a new cryptic message (an item used in the game) every time the game is ran
     # Generate a random list of 3 numbers that represent the locker combination
     combination = []
-    for i in range(0, 3):
+    for i in range(0,3):
         num = random.randint(10, 15)
         # while loop handles repetitive numbers as opposed to a comprehension
         while num in combination:
             num = random.randint(10, 15)
-
+        
         combination.append(num)
     # Change to hexadecimal
     cryptic_message = [hex(num).upper() for num in combination]
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing and moves < 45:
+    while game.ongoing and moves < 40:
         # Note: If the loop body is getting too long, you should split the body up into helper functions
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
@@ -243,11 +242,11 @@ if __name__ == "__main__":
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        print(location.id_num, "You are at", location.name)
+        print("You are at", location.name)
         if location.visited:
             print(location.brief_description)
         else:
-            print(location.long_description)
+            print(location.visited)
             location.visited = True
 
         # Display possible actions at this location
@@ -274,14 +273,6 @@ if __name__ == "__main__":
             elif choice == "inventory":
                 print("Your current inventory:")
                 game.display_inv()
-                inspect = input("\nInput object name to inspect, or 'no' if not: ").strip().lower()
-                if inspect != 'no':
-                    if game.get_item(inspect) in game.current_inv:
-                        print(game.get_item(inspect).description)
-                        if inspect == 'cipher message item':
-                            print("It seems to have some writing:", cryptic_message)
-                    else:
-                        print("That was not a valid object.")
             elif choice == "score":
                 print("Your current score is:", game.score)
             elif choice == "quit":
@@ -307,39 +298,17 @@ if __name__ == "__main__":
             else:
                 if choice == "search":
                     game.search(location)
-                elif choice == "trade":
+                elif choice == "trade" or "reach under cabinet":
                     game.trade(location)
                 elif choice == "interact":
                     game.interact(location)
                 elif choice == "submit project":
                     game.submit(location)
-                elif choice == "open locker":
-                    if game.puzzle():
-                        print("The lock opens!")
-                        game.interact(location)
-                    else:
-                        print("The combination was incorrect.")
-                elif choice == "grab USB":
-                    if game.trade(location):
-                        print("Yay! Your USB is now in your inventory")
-                    else:
-                        print("You try to grab it with your bare hands, but it won't reach.",
-                              "You realize a ruler and some chewed up gum might help...")
-
 
         print("\n================\n")
 
-    if moves >= 45:
+    if moves >= 40:
         print("You have exceeded the maximum amount of moves.",
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
               "Better luck next time.")
-
-
-"""
-to-dos
-- score saving
-- score for getting message
-- lots of text to make things make more sense
-- clean up code
-"""
