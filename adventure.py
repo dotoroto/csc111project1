@@ -31,8 +31,11 @@ class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
     Instance Attributes:
+        - current_inv: this list stores the player's inventory currently
         - current_location_id: the id representing the player's current location
         - ongoing: a boolean that is true when the game is playing and false when the player quits, wins, or loses
+        - score: the player's score, increases by picking up items
+        - MAX_WEIGHT: the maximum weight that can be carried by the player
 
     Representation Invariants:
         - current_location_id >= 1
