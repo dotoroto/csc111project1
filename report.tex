@@ -6,14 +6,14 @@
 \usepackage[margin=0.75in]{geometry}
 
 \title{CSC111 Winter 2026 Project 1}
-\author{TODO: FILL IN YOUR NAME(S) HERE}
+\author{Dorothy Zheng, Catherine Susilo, Lily You}
 \date{\today}
 
 \begin{document}
 \maketitle
 
 \section*{Running the game}
-We should be able to run your game by simply running \texttt{adventure.py}. If you have any other requirements (e.g., installing certain modules), describe them here. Otherwise, skip this section.
+Run \texttt{adventure.py} using Python 3.13.5. and then enlarge the log for the best experience.
 
 \section*{Game Map}
 
@@ -24,74 +24,365 @@ We should be able to run your game by simply running \texttt{adventure.py}. If y
   6  5  7 -1 -1
 \end{verbatim}
 
-Starting location is: 1
-
+Starting location is: 1\\
 \section*{Game solution}
-List of commands:
+Optimized solution has 26 moves minimum to win + 2 moves for full score (optional)\\
 
+List of commands:
+\begin{verbatim}
+search
+toonie
+go east
+go south
+go south
+trade coins
+go north
+go north
+go east
+use vending machine
+go west
+go south
+go south
+go south
+give chocolate
+go east
+enter janitor's closet
+go west
+(---optional---)
+go east
+buy boba
+go west
+(---------------)
+go north
+go north
+inventory
+cryptic message
+inspect
+(take the hexadecimals seen as '0X...' and find its corresponding decimal value,
+(see Table 1 below) once you have figured that out continue with the next step)
+\end{verbatim}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Hexadecimal & A & B & C & D & E & F \\
+\hline
+Decimal & 10 & 11 & 12 & 13 & 14 & 15 \\
+\hline
+\end{tabular}
+\caption{Mapping between Hexadecimal and Decimal}
+\label{tab:item-location}
+\end{table}
+\begin{verbatim}
+open locker
+(insert 1st digit based on first '0X...')
+(insert 2st digit based on second '0X...')
+(insert 3st digit based on third '0X...')
+go north
+go east
+go east
+search
+gum
+go east
+search
+ruler
+go south
+go south
+get usb drive
+go north
+go north
+go west
+go west
+go west
+ask lost and found
+go west
+submit project
+\end{verbatim}
+\pagebreak
 \section*{Lose condition(s)}
-Description of how to lose the game:
-
+Description of how to lose the game: Ran out of moves. Max moves: 40 \\
 List of commands:
+\begin{verbatim}
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+\end{verbatim}
 
 Which parts of your code are involved in this functionality:
-
+\begin{verbatim}
+# Located in the main method in if __name__ == "__main__"
+while game.ongoing and moves < game.max_moves:
+    ...
+    if moves >= game.max_moves:
+        print("You have exceeded the maximum amount of moves.",
+              "You were running around too much and ran out of time.",
+              "Unfortunately, you recieved a 0 on your project.",
+              "Better luck next time.")
+\end{verbatim}
 % Copy-paste the above if you have multiple lose conditions and describe each possible way to lose the game
 
 \section*{Inventory}
 
 \begin{enumerate}
 \item All location IDs that involve items in the game:
-
+\begin{enumerate}
+    \item 1: Item 6, 1, 2, 3, 13
+    \item 2: Item 3
+    \item 3: Item 2, 10
+    \item 4: Item 4, 6
+    \item 5: Item 9, 8
+    \item 6: Item 13, 4
+    \item 7: Item 10, 9
+    \item 8: Item 8, 5
+    \item 9: Item 11
+    \item 10: Item 12
+    \item 11: Item 1, 11, 12
+\end{enumerate}
 \item Item data:
 \begin{enumerate}
     \item For Item 1:
     \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
+    \item Item name: USB Drive
+    \item Item start location ID: 12
+    \item Item target location ID: 1
     \end{itemize}
         \item For Item 2:
     \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
+    \item Item name: Laptop Charger
+    \item Item start location ID: 3
+    \item Item target location ID: 1
     \end{itemize}
         \item For Item 3:
     \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
+    \item Item name: Lucky Mug
+    \item Item start location ID: 2
+    \item Item target location ID: 1
     \end{itemize}
-    % Copy-paste the above if you have more items, to list ALL items
+        \item For Item 4:
+    \begin{itemize}
+    \item Item name: Loonie
+    \item Item start location ID: 4
+    \item Item target location ID:  6
+    \end{itemize}
+        \item For Item 5:
+    \begin{itemize}
+    \item Item name: Quarter
+    \item Item start location ID: 4
+    \item Item target location ID: 8
+    \end{itemize}
+        \item For Item 6:
+    \begin{itemize}
+    \item Item name: Toonie
+    \item Item start location ID: 1
+    \item Item target location ID: 4
+    \end{itemize}
+            \item For Item 7:
+    \begin{itemize}
+    \item Item name: TCard
+    \item Item start location ID: 1
+    \item Item target location ID: 3
+    \end{itemize}
+        \item For Item 8:
+    \begin{itemize}
+    \item Item name: Chocolate Bar
+    \item Item start location ID: 8
+    \item Item target location ID: 5
+    \end{itemize}
+        \item For Item 9:
+    \begin{itemize}
+    \item Item name: Janitor Closet Key
+    \item Item start location ID: 5
+    \item Item target location ID: 7
+    \end{itemize}
+        \item For Item 10:
+    \begin{itemize}
+    \item Item name: Cryptic Message
+    \item Item start location ID: 7
+    \item Item target location ID: 3
+    \end{itemize}
+        \item For Item 11:
+    \begin{itemize}
+    \item Item name: Gum
+    \item Item start location ID: 9
+    \item Item target location ID: 12
+    \end{itemize}
+        \item For Item 12:
+    \begin{itemize}
+    \item Item name: Ruler
+    \item Item start location ID: 10
+    \item Item target location ID: 12
+    \end{itemize}
+        \item For Item 13:
+    \begin{itemize}
+    \item Item name: bubble tea
+    \item Item start location ID: 6
+    \item Item target location ID: 1
+    \end{itemize}
 \end{enumerate}
 
-    \item Exact command(s) that should be used to pick up an item (choose any one or more items for this example), and the command(s) used to use/drop the item (can copy the list you assigned to \texttt{inventory\_demo} in the \texttt{simulation.py} file)
+    \item Exact command(s) that should be used to pick up an item (choose any one or more items for this example), and the command(s) used to use/drop the item (can copy the list you assigned to \texttt{inventory\_demo} in the \texttt{simulation.py} file):
+    \begin{verbatim}
+    # The search command provides a list of items that can be picked up at a
+      given location.
+    # Input the name of an item to grab and put in inventory. It can't be
+      picked up if the total weight exceeds the weight limit of 1100g.
+    # To drop an item, use the inventory command, then select an item by typing
+      the item name
+    # Choose between dropping said item, which can then be picked up in the
+      room some other time, or inspect to read the description
+
+    # EXAMPLE (picks up toonie, inspect toonie, trades it for a loonie and quarter,
+      drops loonie):
+    search
+    toonie
+    inventory
+    toonie
+    inspect
+    go east
+    go south
+    go south
+    trade coins
+    inventory
+    loonie
+    drop
+    \end{verbatim}
     \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory} command:
+    \begin{verbatim}
+    # The methods below are involved in the commands above.
+    def interact_inv(self) -> str:
+        ...
+    def search(self, loc: Location) -> str:
+        ...
+    \end{verbatim}
 \end{enumerate}
 
 \section*{Score}
 \begin{enumerate}
 
-    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase:
-
+    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase: \\ \\
+    The player can earn scores by completing trades with entities and receiving items from puzzles completed. The first location in which they can increase their score is in 2 (Robarts Commons) by doing the following steps:
+    \begin{verbatim}
+    search
+    go east
+    ask lost and found
+    score
+    \end{verbatim}
 
     \item Copy the list you assigned to \texttt{scores\_demo} in the \texttt{simulation.py} file into this section of the report:
+    \begin{verbatim}
+    scores_demo = ["search", "go east", "ask lost and found", "score"]
+    \end{verbatim}
 
-
+    \pagebreak
     \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score} functionality:
+    \begin{verbatim}
+    # Inside class AdventureGame, there is an Instance Attribute that holds the score
+    score: int
+    # Methods that adds to score, it's based on target_points in game_data.json
+    def trade(self, loc: Location, cmd: str) -> bool:
+        ...
+        self.score += self.get_item(item).target_points
+    def interact(self, loc: Location, cmd: str) -> None:
+        ...
+        self.score += self.get_item(item).target_points
+    def submit(self, loc: Location) -> bool:
+        ...
+        self.score += self.get_item("bubble tea").target_points
+    \end{verbatim}
+
 \end{enumerate}
 
 \section*{Enhancements}
 \begin{enumerate}
-    \item Describe your enhancement \#1 here
+    \item Enhancement \#1: Complex puzzle
     \begin{itemize}
-        \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
-        \item Complexity level (choose from low/medium/high):
-        \item Reasons you believe this is the complexity level (e.g., mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.)
-        \item Name the parts of the code which are involved in this enhancement
-        \item Copy the list you assigned to \texttt{enhancements\_demo} in the \texttt{simulation.py} file into this section of the report:
-    \end{itemize}
+        \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it): \\
+        To retrieve the laptop charger, players must navigate a satirical puzzle chain centered around campus life. This enhancement adds layers of exploration and NPC interaction, turning a simple item pickup into a narrative! \\
+        To solve this puzzle, the player must complete the following sequence: \\
+        1. Locate a toonie hidden somewhere within their dorm. \\
+        2. Interact with the Rotman student, who "scams" the player by exchanging the toonie \\ for the needed coins for the vending machine. \\
+        3. Use the coin at the vending machine to dispense a chocolate bar. \\
+        4. Find the hungry kid and give them the chocolate, in which they will provide a \\ Janitor's Closet Key \\
+        5. Use the key to enter the janitor's closet, where you get a cryptic message. \\
+        6. Decipher the message (simple hexadecimal to decimal conversion) \\
+        7. Use that code to unlock a locker to obtain the laptop charger. \\
+
+        \item Complexity level (choose from low/medium/high): High \\
+        \item Reasons you believe this is the complexity level (e.g., mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.) \\
+        The complexity of this enhancement comes from moving beyond simple "item-to-room" interactions into a highly dependent logic chain. \\
+
+        Items are not used independently. They are chained together. We had to program specific triggers where the output of one interaction (i.e, getting the coins for the vending machine) is the mandatory prerequisite for the next, creating a more in-depth and longer chain of events to keep up with. As a result, this made it extremely hard to organize. \\
+
+        Along with that, testing complexity increased significantly with the number of different steps that connected and the possibilities that created many vulnerable failure points. As well as, this is a text-based game, so another challenge that we faced was input validation, as players have unpredictable behaviour. \\
+
+        \item Name the parts of the code which are involved in this enhancement \\
+        The entire code underneath the method get\_item in adventure.py \\
+        Added instance attributes in location.py \\
+
+        \item Copy the list you assigned to \texttt{enhancements\_demo} in the \texttt{simulation.py} file into this section of the report: \\
+        locker\_combo\_demo = ["search", "go east", "go south", "go south", "trade coins", "go \\ north", "go north", "go east", "use vending machine", "go west", "go south", "go \\ south", "go south", "give chocolate", "go east", "enter janitor's closet", "go west", \\ "go north", "go north", "inventory", "open locker"] \\
+        expected\_log = [1, 1, 2, 3, 4, 4, 3, 2, 8, 8, 2, 3, 4, 5, 5, 7, 7, 5, 4, 3, 3, 3] \\
+        sim = AdventureGameSimulation('game\_data.json', 1, locker\_combo\_demo) \\
+        assert expected\_log == sim.get\_id\_log() \\
+
+        \end{itemize}
+
+        \item Enhancement \#2: Item weights + Inventory limit
+        \begin{itemize}
+        \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it): \\
+        We add a weight component to every item, and we include a max on how much the user can carry, specifically 1100g. If the player attempts to pick up an item that would exceed their weight limit, the game will prevent the action, forcing the player to choose which items are essential and which must be dropped to make room. \\
+
+        \item Complexity level (choose from low/medium/high): Medium \\
+        \item Reasons you believe this is the complexity level (e.g., mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.) \\
+        We include a new attribute to the items, and needed to update the JSON accordingly. We also made it so there are situations in which the user MUST drop an item to be able to complete tasks, and also be able to grab them again later on to maximize points.
+        \\
+        \item Name the parts of the code which are involved in this enhancement \\
+        The game data JSON file, inventory management and game entity classes all had to be modified to account for a new attribute and needed to react accordingly.
+
+        \item Copy the list you assigned to \texttt{enhancements\_demo} in the \texttt{simulation.py} file into this section of the report: \\
+    inventory\_weight\_demo = ["inventory", "search", "inventory", "go west"] \\
+    expected\_log = [1, 1, 1, 1, 2] \\
+    sim = AdventureGameSimulation('game\_data.json', 1, inventory\_weight\_demo) \\
+    assert expected\_log == sim.get\_id\_log()
+
+        \end{itemize}
 
     % Uncomment below section if you have more enhancements; copy-paste as needed
     %\item Describe your enhancement here
@@ -106,3 +397,5 @@ Which parts of your code are involved in this functionality:
 
 
 \end{document}
+
+
