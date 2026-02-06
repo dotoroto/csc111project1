@@ -143,14 +143,14 @@ class AdventureGame:
             if len(given_location.items) == 0:
                 given_location.available_commands.pop("search")
 
-    def display_map(self):
+    def display_map(self) -> None:
         print("+---+---+---+---+----+")
         print("| 1 | 2 | 8 | 9 | 10 |")
-        print("    +---+---+---+---+----+")
-        print("    | 3 |           | 11 |")
-        print("    +---+           +----+")
-        print("    | 4 |           | 12 |")
-        print("+---+---+---+       +----+")
+        print("+---+---+---+---+----+")
+        print("    | 3 |       | 11 |")
+        print("    +---+       +----+")
+        print("    | 4 |       | 12 |")
+        print("+---+---+---+   +----+")
         print("| 6 | 5 | 7 |")
         print("+---+---+---+")
 
@@ -225,7 +225,7 @@ if __name__ == "__main__":
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
     game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
-    menu = ["look", "inventory", "score", "log", "quit"]  # Regular menu options available at each location
+    menu = ["look", "inventory", "map", "score", "log", "quit"]  # Regular menu options available at each location
     choice = None
     moves = 0
 
@@ -264,7 +264,7 @@ if __name__ == "__main__":
             location.visited = True
 
         # Display possible actions at this location
-        print("What to do? Choose from: look, inventory, score, log, quit")
+        print("What to do? Choose from: look, inventory, map, score, log, quit")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
@@ -295,6 +295,8 @@ if __name__ == "__main__":
                             print("It seems to have some writing:", cryptic_message)
                     else:
                         print("That was not a valid object.")
+            elif choice == "map":
+                game.display_map()
             elif choice == "score":
                 print("Your current score is:", game.score)
             elif choice == "quit":
