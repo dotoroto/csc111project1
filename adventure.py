@@ -46,8 +46,8 @@ class AdventureGame:
     _locations: dict[int, Location]
     _items: list[Item]
     current_inv: list[Item]
-    current_location_id: int  # Suggested attribute, can be removed
-    ongoing: bool  # Suggested attribute, can be removed
+    current_location_id: int
+    ongoing: bool
     score: int
     MAX_WEIGHT: int = 1100
 
