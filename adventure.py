@@ -79,7 +79,7 @@ class AdventureGame:
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
         self.score = 0
-        self.current_inv = ["tcard"]
+        self.current_inv = [self.get_item("tcard")]
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
