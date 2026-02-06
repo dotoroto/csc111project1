@@ -173,7 +173,7 @@ class AdventureGame:
                     self.current_inv.append(self.get_item(pickup))
                     loc.items.remove(pickup)
                     print("You successfully picked up " + pickup)
-                    loc.action_completed = True
+                    loc.completed["action"] = True
                     return " - " + pickup + " picked up"
             else:
                 print("That was not an available item.")
@@ -210,7 +210,7 @@ class AdventureGame:
                 print("You now have", item, "in your inventory")
                 self.score += self.get_item(item).target_points
             loc.available_commands.pop(cmd)
-            loc.action_completed = True
+            loc.completed["action"] = True
             return True
         else:
             print("You do not have the required items to complete this action.")
@@ -224,7 +224,7 @@ class AdventureGame:
             self.score += self.get_item(item).target_points
             print("You now have", item, "in your inventory")
         loc.available_commands.pop(cmd)
-        loc.action_completed = True
+        loc.completed["action"] = True
 
     def submit(self, loc: Location) -> bool:
         """If possible, user submits projects and wins if they completed the requirements.
@@ -237,7 +237,7 @@ class AdventureGame:
             print("Congratulations, you submitted your project on time! You cheer and celebrate.",
                   "Hopefully you get an 100%! Your score is:", self.score)
             self.ongoing = False
-            loc.action_completed = True
+            loc.completed["action"] = True
             return True
         else:
             print("You do not have the required items to submit your project yet.")
