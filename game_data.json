@@ -3,9 +3,8 @@
     {
       "id": 1,
       "name": "Innis Dorm Room",
-      "brief_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your \nmisplaced laptop charger, USB drive, and your lucky mug. Find them before it’s \ntoo late and come back to submit your project. To your east is Robarts Commons.\n",
-      "long_description": "You are in your dorm room about to submit your first-year CS project, but in your \nsleep-deprived state you didn’t realize that you are missing some key items. \nYour USB drive (the only copy of your game, because of course you forgot to back \nit up), your laptop charger (your battery was at 5% when you sat down), and—worst \nof all—your lucky U of T mug. You need to find them before the deadline. \nYou pick up your TCard on the desk, probably need that. You also see something \nshiny on the ground -- looks like a toonie? To your east is Robarts Commons.\n",
-      "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your \nmisplaced laptop charger, USB drive, and your lucky mug. Find them before \nit’s too late and come back to submit your project. To your east is Robarts Commons.\n",
+      "brief_description": "You see something shiny on the ground -- looks like a toonie?",
+      "long_description": "",
       "available_commands": {
         "go east": 2,
         "search": -1,
@@ -38,11 +37,11 @@
       "available_commands": {
         "go north": 2,
         "go south": 4,
-        "trade": -1
+        "open locker": -1
       },
       "items": [""],
       "enter_requirement": "tcard",
-      "interaction": [["cryptic message item"], ["laptop charger"]]
+      "interaction": ["laptop charger"]
     },
     {
       "id": 4,
@@ -219,13 +218,7 @@
     },
     {
       "name": "gum",
-<<<<<<< Updated upstream
       "description": "A piece of chewed gum. Ewww... but it could be useful with a ruler.",
-=======
-      "description": "While you were walking, you accidentally stepped on a piece of chewed gum. Ewww... but it could be useful with a ruler.",
-      "start_position": 9,
-      "target_position": 12,
->>>>>>> Stashed changes
       "target_points": 1
     },
     {

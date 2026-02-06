@@ -312,6 +312,9 @@ if __name__ == "__main__":
                     game.interact(location)
                 elif choice == "submit project":
                     game.submit(location)
+                elif choice == "open locker":
+                    if game.puzzle():
+                        game.interact()
                 elif choice == "grab USB":
                     if game.trade(location):
                         print("Yay! Your USB is now in your inventory")
