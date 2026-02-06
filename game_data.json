@@ -232,7 +232,7 @@
       "weight": 15.0
     },
     {
-      "name": "cipher message item",
+      "name": "cryptic message",
       "description": "An old piece of paper with some scribbled writing. I wonder who left it there.",
       "target_points": 3,
       "weight": 4.5
