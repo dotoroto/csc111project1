@@ -85,7 +85,8 @@ class AdventureGame:
         for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
             location_obj = Location(loc_data['id'], loc_data['descriptions'],
                                     loc_data['available_commands'], loc_data['items'],
-                                    loc_data['enter_requirement'], loc_data['interaction'])
+                                    loc_data['enter_requirement'], loc_data['interaction'],
+                                    {"visited": False, "action": False})
             location_obj.available_commands["search"] = location_obj.id_num
             locations[loc_data['id']] = location_obj
 
@@ -296,20 +297,20 @@ if __name__ == "__main__":
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
         location = game.get_location()
-        game_log.add_event(Event(location.id_num, location.descriptions[2]), choice)
+        game_log.add_event(Event(location.id_num, location.descriptions["name"]), choice)
 
-        # Depending on whether or not it's been visited before, print either full description (first time visit)
+        # Depending on whether it's been visited before, print either full description (first time visit)
         # or brief description (every subsequent visit) of location
         print(moves, "/", game.max_moves, " ", "location movements remaining", sep="")
-        print("You are at ", location.descriptions[0], " (", location.id_num, ")", sep="")
-        if location.visited:
-            if location.action_completed:
-                print(location.descriptions[3])
+        print("You are at ", location.descriptions["name"], " (", location.id_num, ")", sep="")
+        if location.completed["visited"]:
+            if location.completed["action"]:
+                print(location.descriptions["post_action"])
             else:
-                print(location.descriptions[1])
+                print(location.descriptions["brief"])
         else:
-            print(location.descriptions[2])
-            location.visited = True
+            print(location.descriptions["long"])
+            location.completed["visited"] = True
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, map, score, log, quit")
@@ -330,7 +331,7 @@ if __name__ == "__main__":
             if choice == "log":
                 game_log.display_events()
             elif choice == "look":
-                print(location.descriptions[2])
+                print(location.descriptions["long"])
             elif choice == "inventory":
                 print("Your current inventory:")
                 choice += " " + game.interact_inv()

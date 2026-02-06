@@ -36,7 +36,6 @@ class AdventureGameSimulation:
     _game: AdventureGame
     _events: EventList
 
-    # TODO: Copy/paste your code from A1, and make adjustments as needed
     def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str]) -> None:
         """
         Initialize a new game simulation based on the given game data, that runs through the given commands.
@@ -48,12 +47,10 @@ class AdventureGameSimulation:
         self._events = EventList()
         self._game = AdventureGame(game_data_file, initial_location_id)
 
-        # TODO: Add first event (initial location, no previous command)
         # Hint: self._game.get_location() gives you back the current location
         start_loc = self._game.get_location(initial_location_id)
-        self._events.add_event(Event(start_loc.id_num, start_loc.brief_description), None)
+        self._events.add_event(Event(start_loc.id_num, start_loc.descriptions["brief"]), None)
 
-        # TODO: Generate the remaining events based on the commands and initial location
         # Hint: Call self.generate_events with the appropriate arguments
         self.generate_events(commands, self._game.get_location(initial_location_id))
 
@@ -66,7 +63,6 @@ class AdventureGameSimulation:
         - all commands in the given list are valid commands when starting from current_location
         """
 
-        # TODO: Complete this method as specified. For each command, generate the event and add it to self._events.
         # Hint: current_location.available_commands[command] will return the next location ID
         # which executing <command> while in <current_location_id> leads to
         loc = current_location
@@ -80,7 +76,7 @@ class AdventureGameSimulation:
                 new_loc = loc
                 new_loc_id = loc.id_num
 
-            event = Event(new_loc_id, new_loc.brief_description)
+            event = Event(new_loc_id, new_loc.descriptions["brief"])
             self._events.add_event(event, command)
             loc = new_loc
 
@@ -114,13 +110,12 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
+    })
 
-    # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
     win_walkthrough = ["search", "go east", "go south", "go south", "trade coins", "go north",
                        "go north", "go east", "use vending machine", "go west", "go south", "go south", "go south",
                        "give chocolate", "go east", "enter janitor's closet", "go west", "go north", "go north",
@@ -131,7 +126,7 @@ if __name__ == "__main__":
     expected_log = [1, 1, 2, 3, 4, 4, 3, 2, 8, 8, 2, 3, 4, 5, 5, 7, 7, 5, 4, 3, 3,
                     2, 8, 9, 9, 10, 10, 11, 12, 12, 11, 10, 9, 8, 2, 2, 1, 1]
 
-    """NOTE: win walkthrough does not include looking at inventory to find encrypted message for locker code"""
+    # NOTE: win walkthrough does not include looking at inventory to find encrypted message for locker code
     sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
     assert expected_log == sim.get_id_log()
 
@@ -164,4 +159,3 @@ if __name__ == "__main__":
     expected_log = [1, 1, 2, 3, 4, 4, 3, 2, 8, 8, 2, 3, 4, 5, 5, 7, 7, 5, 4, 3, 3, 3]
     sim = AdventureGameSimulation('game_data.json', 1, locker_combo_demo)
     assert expected_log == sim.get_id_log()
-
