@@ -243,11 +243,14 @@ class AdventureGame:
         Note: The 3 digits come from the crypti message which is in hexadecimal
         """
         user_answer = []
-        print("Huh, you need 3 numbers to unlock it...where could you get this? (please reword)")
+        print("Huh, you need 3 numbers to unlock it...I wonder where you could find that...")
         suffixes = ["1st", "2nd", "3rd"]
         for combo in range(3):
             print(suffixes[combo] + " digit: ")
-            user_answer.append(int(input()))
+            user_ans = input()
+            #In case they entire no digit
+            if user_ans != '':
+                user_answer.append(int(input()))
 
         return user_answer == combination
 
