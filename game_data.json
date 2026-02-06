@@ -3,9 +3,9 @@
     {
       "id": 1,
       "name": "Innis Dorm Room",
-      "brief_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced \nlaptop charger, USB drive, and your lucky mug. Find them before it’s too late and \ncome back to submit your project. To your east is Robarts Commons.\n",
-      "long_description": "You are in your dorm room about to submit your first-year CS project, but in your sleep-deprived \nstate you didn’t realize that you are missing some key items. Your USB drive (the only \ncopy of your game, because of course you forgot to back it up), your \nlaptop charger (your battery was at 5% when you sat down), and—worst of all—your \nlucky U of T mug. You need to find them before the deadline. You pick up your TCard on \nthe desk, probably need that. You also see something shiny on the ground -- looks like a toonie? \nTo your east is Robarts Commons.\n",
-      "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced \nlaptop charger, USB drive, and your lucky mug. Find them before it’s too late and come back \nto submit your project. To your east is Robarts Commons.\n",
+      "brief_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced laptop charger, USB drive, and your lucky mug. \nFind them before it’s too late and come back to submit your project. To your east is Robarts Commons.\n",
+      "long_description": "You are in your dorm room about to submit your first-year CS project, but in your sleep-deprived state you didn’t realize that you are missing \nsome key items. Your USB drive (the only copy of your game, because of course you forgot to back it up), your laptop charger (your battery \nwas at 5% when you sat down), and—worst of all—your lucky U of T mug. You need to find them before the deadline. \nYou see something shiny on the ground -- looks like a toonie? To your east is Robarts Commons.\n",
+      "post_item_grab_description": "You are in your Innis dorm room where you keep your dead laptop. But, it needs your misplaced laptop charger, USB drive, and your lucky mug. \nFind them before it’s too late and come back to submit your project. To your east is Robarts Commons.\n",
       "available_commands": {
         "go east": 2,
         "search": -1,
@@ -18,8 +18,9 @@
     {
       "id": 2,
       "name": "Robarts Commons",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the first floor of Robarts Commons. Maybe you left something here. But, where could it have gone? Let’s try asking the lost and found. \nTo your west is Innis Dorm Room, to your east is Sidney Smith Hall, go south to go to Hart House.\n",
+      "long_description": "You are on the first floor of Robarts Commons, the place you spent countless nights in to grind for work. One of which was to do your group's first-year \nCS project. Maybe you left something here. But, where could it have gone? Let’s try asking the lost and found. \nTo your west is Innis Dorm Room, to your east is Sidney Smith Hall, go south to go to Hart House.\n",
+      "post_item_grab_description": "You are on the first floor of Robarts Commons, the place you spent countless nights in to grind for work. One of which was to do your group's first-year \nCS project. To your west is Innis Dorm Room, to your east is Sidney Smith Hall, go south to go to Hart House.\n",
       "available_commands": {
         "go east": 8,
         "go west": 1,
@@ -33,8 +34,9 @@
     {
       "id": 3,
       "name": "Hart House Locker Rooms",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are in the Hart House Locker rooms. There are many lockers here, maybe you could open one of them if you have the password. \nNorth is Robarts Commons, south is OISE.\n",
+      "long_description": "You are in the Hart House Locker rooms after scanning your TCard. There are many amenities here, even a pool! The air is warm from the heaters and \nthere are people getting ready to go to their clubs and work out. There are also many lockers that are locked with a padlock. You probably \nneed some sort of cryptic message item to decode one of these lockers. It could contain something you need. \nNorth is Robarts Commons, south is OISE.\n",
+      "post_item_grab_description": "You are in the Hart House Locker rooms after scanning your TCard. There is nothing left to do here. North is Robarts Commons, south is OISE.\n",
       "available_commands": {
         "go north": 2,
         "go south": 4,
@@ -47,8 +49,9 @@
     {
       "id": 4,
       "name": "OISE 1F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the first floor of OISE. You spot a student with a Rotman backpack who could trade you a toonie for a loonie and a quarter. \nTo your north is Hart House, south is Health Sciences.\n",
+      "long_description": "You are on the first floor of OISE, the building where all Rotman Commerce students gather to have lectures and tutorials. There is a small cafe nearby that \nsells coffee and pastries that you used to buy from. You spot a student with a Rotman backpack, maybe they could help you in your endeavors. \nYou talk to them and realize you have a toonie in your backpack, which you can not do anything with, since all the vending machines around campus only take loonies or credit cards. \nThe Rotman kid might give you some spare change if you would like. \nTo your north is Hart House, south is Health Sciences.\n",
+      "post_item_grab_description": "You are on the first floor of OISE, the building where all Rotman Commerce students gather to have lectures and tutorials. There is a small cafe nearby \nthat sells coffee and pastries that you used to buy from. The Rotman kid waves at you with a smile, happy with the trade you made. \nTo your north is Hart House, south is Health Sciences.\n",
       "available_commands": {
         "go north": 3,
         "go south": 5,
@@ -61,8 +64,9 @@
     {
       "id": 5,
       "name": "Health Sciences Building 6F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the 6th floor of the Health Sciences building. There is a very hungry bio-med student who would appreciate a chocolate bar, they might give you something in return. \nWest is the Medical Sciences building, east is a Starbucks on the main street, and north is OISE.\n",
+      "long_description": "You are on the 6th floor of the Health Sciences building. You remember coming here for the MAT223 lecture yesterday. There are many students here \nwho just finished back-to-back lectures, walking sluggishly around. You spot a bio-med student who seems desperately hungry, and think about offering a \nsnack, maybe a chocolate bar? You could probably get one for a quarter from the vending machine in Sidney Smith. \nWest is the Medical Sciences building, east is a Starbucks on the main street, and north is OISE.\n",
+      "post_item_grab_description": "You are on the 6th floor of the Health Sciences building. You see the hungry bio-med student who already finished the whole chocolate bar. They must \nhave been really hungry. They see you and wave gratefully at you. You wave back. \nWest is the Medical Sciences building, east is a Starbucks on the main street, and north is OISE.\n",
       "available_commands": {
         "go east": 7,
         "go west": 6,
@@ -76,8 +80,9 @@
     {
       "id": 6,
       "name": "Medical Sciences Building 2F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the 2nd floor of the Medical Sciences building. You could buy a drink from the cafe nearby for a loonie, nice but not necessary. \nEast is the Health Sciences building.\n",
+      "long_description": "You are on the 2nd floor of the Medical Sciences building. There is a strong aroma from tea, and it turns out a boba cafe opened in the building. \nA drink would be really nice right now, but do you have time for such leisure. In fact, do you have enough money for one? \nIt’s a whole loonie for the cheapest drink, but it would make you feel a lot better. \nEast is the Health Sciences building.\n",
+      "post_item_grab_description": "You are on the 2nd floor of the Medical Sciences building. There is a strong aroma from tea, getting that drink was the right choice after a hard day of \nlooking around for your misplaced items. \nEast is the Health Sciences building.\n",
       "available_commands": {
         "go east": 5,
         "trade": -1
@@ -89,8 +94,9 @@
     {
       "id": 7,
       "name": "Starbucks Cafe",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are in Starbucks. You look around and see a janitor closet. You need a key to get in. Maybe someone hungry has it. West is to the Health Sciences Building.\n",
+      "long_description": "You are in Starbucks. The smell of coffee fills your nose, there are people in line to get their daily dose of coffee, and 3 baristas behind the counter. \nYou remember staying here for hours on end at some point yesterday, so you probably left one of your important items here. But there is no lost and found here, \nwhat if someone stole it! You look around and see a janitor closet. Since they were probably cleaning after Starbucks closes, they might know where your stuff went. \nYou go to the closet and knock on the door. It is locked. You need a key to get in. Maybe someone hungry has it. \nWest is to the Health Sciences Building.\n",
+      "post_item_grab_description": "You are in Starbucks. The smell of coffee fills your nose, there are people in line to get their daily dose of coffee, and 3 baristas behind the counter. \nWest is to the Health Sciences Building.\n",
       "available_commands": {
         "go west": 5,
         "trade": -1
@@ -102,8 +108,9 @@
     {
       "id": 8,
       "name": "Sidney Smith Hall 1F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are in Sidney Smith Hall. There is a chocolate bar for a single quarter in the vending machine, which you want to buy. \nTo your west is Robarts Commons, East is McLennan.\n",
+      "long_description": "You are in Sidney Smith Hall, the Arts and Science building, filled with ArtSci students going to and from classes. You have had many tutorials in this single building. \nThere is a cafe in the building, the smell of coffee fills your lungs, there is also a vending machine near the entrance of this building. \nYou spot your favorite chocolate bar in the vending machine, you think about getting one, it costs a single quarter. \nTo your west is Robarts Commons, East is McLennan.\n",
+      "post_item_grab_description": "You are in Sidney Smith Hall, the Arts and Science building, filled with ArtSci students going to and from classes. You have had many tutorials in this \nsingle building. There is a cafe in the building, the smell of coffee fills your lungs. There is nothing left to do here. \nTo your west is Robarts Commons, East is McLennan.\n",
       "available_commands": {
         "go east": 9,
         "go west": 2,
@@ -116,8 +123,9 @@
     {
       "id": 9,
       "name": "McLennan 1F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the first floor of McLennan. West is the Sidney Smith Hall, and east is Myhal.\n",
+      "long_description": "You are on the first floor of McLennan. You remember coming here 3 times a week for your MAT137 lectures, running into the building to secure a seat, \notherwise you would need to sit on the stairs again… Looking around would be great, you never got to enjoy the interiors of this building before. \nWest is the Sidney Smith Hall, and east is Myhal.\n",
+      "post_item_grab_description": "You are on the first floor of McLennan. You remember coming here 3 times a week for your MAT137 lectures, running into the building to secure a seat, \notherwise you would need to sit on the stairs again… \nWest is the Sidney Smith Hall, and east is Myhal.\n",
       "available_commands": {
         "go east": 10,
         "go west": 8,
@@ -130,8 +138,9 @@
     {
       "id": 10,
       "name": "Myhal 2F",
-      "brief_description": "",
-      "long_description": "",
+      "brief_description": "You are on the 2nd floor of Myhal, the engineering building. Maybe a long item could help you. West is Mclennan, and south is Bahen.\n",
+      "long_description": "You are on the 2nd floor of Myhal, the engineering building. They have a lot of robot arms, tools, and other knick-knacks here. Maybe one of these items could help you. \nThere is also a cafe nearby, the smell of coffee hits your nose once again. You think to yourself, there are so many cafes around campus. \nWest is Mclennan, and south is Bahen.\n",
+      "post_item_grab_description": "You are on the 2nd floor of Myhal, the engineering building. They have a lot of robot arms, tools, and other knick-knacks here. There is nothing left to do here. \nWest is Mclennan, and south is Bahen.\n",
       "available_commands": {
         "go west": 9,
         "go south": 11,
@@ -144,8 +153,9 @@
     {
       "id": 11,
       "name": "Bahen 1F",
-      "brief_description": "You are on the first floor of the Bahen Center. There are elevators to the West, and an exit from the building to St. George street to the East. You see something shiny on the ground -- looks like a toonie?",
-      "long_description": "You are on the first floor of the Bahen Center. It's usually crowded at this time of the day, but today it's eerily quiet. Only a few students are studying at the table near the doors. You better not disturb them. One student is rushing down the corridor, wearing a heavy-looking backpack and carrying a textbook in their arms. There are elevators to the West, and an exit from the building to St. George street to the East.",
+      "brief_description": "You are on the first floor of the Bahen Center. South of here is the Gerstein Library, and north is back to Myhal.\n",
+      "long_description": "You are on the 1st floor of the Bahen Center. It's usually crowded at this time of the day, but today it's eerily quiet. Only a few students are studying at \nthe table near the doors. You better not disturb them. You have been here countless times, be it tutorials or a whole night for the hackathons you have been to. \nSouth of here is the Gerstein Library, and north is back to Myhal.\n",
+      "post_item_grab_description": "You are on the first floor of the Bahen Center. South of here is the Gerstein Library, and north is back to Myhal.\n",
       "available_commands": {
         "go north": 10,
         "go south": 12
@@ -157,8 +167,9 @@
     {
       "id": 12,
       "name": "Gerstein Library",
-      "brief_description": "A nice place to study.",
-      "long_description": "",
+      "brief_description": "You are in Gerstein Library. You spot a shiny object out of the corner of your eye, looking around is in your best interest. North is Bahen.\n",
+      "long_description": "You are in Gerstein Library, a pretty nice place to study and concentrate on work you need to finish. You remember being here for a long time yesterday \nto finish up your first-year CS project. You probably left something here, looking around is in your best interest because you spot a shiny \nobject out of the corner of your eye. North is Bahen.\n",
+      "post_item_grab_description": "You are in Gerstein Library, a pretty nice place to study and concentrate on work you need to finish. You found the USB drive here containing the \nentirety of your project under the cabinet. North is Bahen.\n",
       "available_commands": {
         "go north": 11,
         "trade": -1
@@ -172,67 +183,80 @@
     {
       "name": "usb drive",
       "description": "Your project's USB drive containing the only copy of your game.",
-      "target_points": 5
+      "target_points": 5,
+      "weight": 32.5
     },
     {
       "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
-      "target_points": 5
+      "target_points": 5,
+      "weight": 300.0
     },
     {
       "name": "lucky mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
-      "target_points": 5
+      "target_points": 5,
+      "weight": 300.0
     },
     {
       "name": "loonie",
       "description": "A loonie from the Rotman student. What a scammer.",
-      "target_points": 2
+      "target_points": 2,
+      "weight": 6.27
     },
     {
       "name": "quarter",
       "description": "A quarter from the Rotman student. What a scammer.",
-      "target_points": 5
+      "target_points": 5,
+      "weight": 4.4
     },
     {
       "name": "toonie",
       "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "target_points": 1
+      "target_points": 1,
+      "weight": 6.92
     },
     {
       "name": "tcard",
       "description": "Your T-card.",
-      "target_points": 1
+      "target_points": 1,
+      "weight": 5.0
     },
     {
       "name": "chocolate bar",
       "description": "A delicious chocolate bar. I wonder if anyone's hungry.",
-      "target_points": 3
+      "target_points": 3,
+      "weight": 100.0
     },
     {
       "name": "janitor closet key",
       "description": "The only copy of the key to get into the janitor's closet.",
-      "target_points": 3
+      "target_points": 3,
+      "weight": 15.0
     },
     {
       "name": "cipher message item",
       "description": "An old piece of paper with some scribbled writing. I wonder who left it there.",
-      "target_points": 3
+      "target_points": 3,
+      "weight": 4.5
     },
     {
       "name": "gum",
       "description": "A piece of chewed gum. Ewww... but it could be useful with a ruler.",
-      "target_points": 1
+      "target_points": 1,
+      "weight": 2.4
     },
     {
       "name": "ruler",
       "description": "A strong durable ruler. It seems like it would work well to pry up heavy objects.",
-      "target_points": 1
+      "target_points": 1,
+      "weight": 48.0
     },
     {
       "name": "bubble tea",
       "description": "A nice refreshing drink!",
-      "target_points": 5
+      "target_points": 5,
+      "weight": 550.0
     }
   ]
 }
