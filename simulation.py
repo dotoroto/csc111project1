@@ -71,10 +71,17 @@ class AdventureGameSimulation:
         # which executing <command> while in <current_location_id> leads to
         loc = current_location
         for command in commands:
-            new_loc_id = loc.available_commands[command]
-            new_loc = self._game.get_location(new_loc_id)
-            new_event = Event(new_loc_id, new_loc.brief_description)
-            self._events.add_event(new_event, command)
+            if command in loc.available_commands:
+                # Movement command
+                new_loc_id = loc.available_commands[command]
+                new_loc = self._game.get_location(new_loc_id)
+            else:
+                # Base menu commands (inventory, search, score, etc.)
+                new_loc = loc
+                new_loc_id = loc.id_num
+
+            event = Event(new_loc_id, new_loc.brief_description)
+            self._events.add_event(event, command)
             loc = new_loc
 
     def get_id_log(self) -> list[int]:
@@ -114,75 +121,47 @@ if __name__ == "__main__":
     # })
 
     # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
-    win_walkthrough = [""]  # Create a list of all the commands needed to walk through your game to win it
-    expected_log = [
-        "Location: 1, Command: search - toonie picked up",
-        "Location: 1, Command: go east sucessfully",
-        "Location: 2, Command: go south sucessfully",
-        "Location: 3, Command: go south sucessfully",
-        "Location: 4, Command: trade coins sucessfully",
-        "Location: 4, Command: go north sucessfully",
-        "Location: 3, Command: go north sucessfully",
-        "Location: 2, Command: go east sucessfully",
-        "Location: 8, Command: use vending machine sucessfully",
-        "Location: 8, Command: go west sucessfully",
-        "Location: 2, Command: go south sucessfully",
-        "Location: 3, Command: go south sucessfully",
-        "Location: 4, Command: go south sucessfully",
-        "Location: 5, Command: give chocolate sucessfully",
-        "Location: 5, Command: go east sucessfully",
-        "Location: 7, Command: enter janitor's closet sucessfully",
-        "Location: 7, Command: go west sucessfully",
-        "Location: 5, Command: go north sucessfully",
-        "Location: 4, Command: go north sucessfully",
-        "Location: 3, Command: inventory cryptic message - inspect",
-        "Location: 3, Command: open locker succesfully",
-        "Location: 3, Command: go north sucessfully",
-        "Location: 2, Command: go east sucessfully",
-        "Location: 8, Command: go east sucessfully",
-        "Location: 9, Command: search - gum picked up",
-        "Location: 9, Command: go east sucessfully",
-        "Location: 10, Command: search - ruler picked up",
-        "Location: 10, Command: go south sucessfully",
-        "Location: 11, Command: go south sucessfully",
-        "Location: 12, Command: get usb drive sucessfully",
-        "Location: 12, Command: go north sucessfully",
-        "Location: 11, Command: go north sucessfully",
-        "Location: 10, Command: go west sucessfully",
-        "Location: 9, Command: go west sucessfully",
-        "Location: 8, Command: go west sucessfully",
-        "Location: 2, Command: ask lost and found",
-        "Location: 2, Command: go west sucessfully",
-        "Location: 1, Command: submit project sucessfully"
-    ]  # Update this log list to include the IDs of all locations that would be visited
-    # Uncomment the line below to test your walkthrough
+    win_walkthrough = ["search", "go east", "go south", "go south", "trade coins", "go north",
+                       "go north", "go east", "use vending machine", "go west", "go south", "go south", "go south",
+                       "give chocolate", "go east", "enter janitor's closet", "go west", "go north", "go north",
+                       "open locker", "go north", "go east", "go east", "search", "go east", "search",
+                       "go south", "go south", "get usb drive", "go north", "go north", "go west", "go west",
+                       "go west", "ask lost and found", "go west", "submit project"]
+
+    expected_log = [1, 1, 2, 3, 4, 4, 3, 2, 8, 8, 2, 3, 4, 5, 5, 7, 7, 5, 4, 3, 3,
+                    2, 8, 9, 9, 10, 10, 11, 12, 12, 11, 10, 9, 8, 2, 2, 1, 1]
+
+    """NOTE: win walkthrough does not include looking at inventory to find encrypted message for locker code"""
     sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
     assert expected_log == sim.get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = []
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
-    # Uncomment the line below to test your demo
+    lose_demo = ["go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+                 "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+                 "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+                 "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+                 "go east", "go west", "go east", "go west"]
+    expected_log = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1,
+                    2, 1, 2, 1, 2, 1, 2, 1]
     sim = AdventureGameSimulation('game_data.json', 1, lose_demo)
     assert expected_log == sim.get_id_log()
 
-    # TODO: Add code below to provide walkthroughs that show off certain features of the game
-    # TODO: Create a list of commands involving visiting locations, picking up items, and then
-    #   checking the inventory, your list must include the "inventory" command at least once
-    # inventory_demo = [..., "inventory", ...]
-    # expected_log = []
-    # sim = AdventureGameSimulation(...)
-    # assert expected_log == sim.get_id_log()
+    inventory_demo = ["inventory", "search", "inventory", "go east"]
+    # Shows what inventory looks like before v. after picking up a toonie
+    expected_log = [1, 1, 1, 1, 2]
+    sim = AdventureGameSimulation('game_data.json', 1, inventory_demo)
+    assert expected_log == sim.get_id_log()
 
-    # scores_demo = [..., "score", ...]
-    # expected_log = []
-    # sim = AdventureGameSimulation(...)
-    # assert expected_log == sim.get_id_log()
+    scores_demo = ["search", "go east", "ask lost and found", "score"]
+    expected_log = [1, 1, 2, 2, 2]
+    sim = AdventureGameSimulation('game_data.json', 1, scores_demo)
+    assert expected_log == sim.get_id_log()
 
-    # Add more enhancement_demos if you have more enhancements
-    # enhancement1_demo = [...]
-    # expected_log = []
-    # sim = AdventureGameSimulation(...)
-    # assert expected_log == sim.get_id_log()
+    locker_combo_demo = ["search", "go east", "go south", "go south", "trade coins", "go north", "go north",
+                         "go east", "use vending machine", "go west", "go south", "go south", "go south",
+                         "give chocolate", "go east", "enter janitor's closet", "go west", "go north", "go north",
+                         "inventory", "open locker"]
+    expected_log = [1, 1, 2, 3, 4, 4, 3, 2, 8, 8, 2, 3, 4, 5, 5, 7, 7, 5, 4, 3, 3, 3]
+    sim = AdventureGameSimulation('game_data.json', 1, locker_combo_demo)
+    assert expected_log == sim.get_id_log()
 
-    # Note: You can add more code below for your own testing purposes

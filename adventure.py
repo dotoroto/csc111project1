@@ -50,6 +50,7 @@ class AdventureGame:
     ongoing: bool  # Suggested attribute, can be removed
     score: int
     MAX_WEIGHT: int = 1100
+    MAX_MOVES: int = 40
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -83,7 +84,7 @@ class AdventureGame:
                                     loc_data['long_description'], loc_data['available_commands'], loc_data['items'],
                                     loc_data['enter_requirement'], loc_data['interaction'],
                                     loc_data['post_item_grab_description'])
-            location_obj.available_commands["search"] = -1
+            location_obj.available_commands["search"] = location_obj.id_num
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -288,7 +289,7 @@ if __name__ == "__main__":
     cryptic_message = [hex(num).upper() for num in combination]
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing and moves < 45:
+    while game.ongoing and moves < game.MAX_MOVES:
         # Note: If the loop body is getting too long, you should split the body up into helper functions
         # for better organization. Part of your mark will be based on how well-organized your code is.
 
@@ -297,7 +298,7 @@ if __name__ == "__main__":
 
         # Depending on whether or not it's been visited before, print either full description (first time visit)
         # or brief description (every subsequent visit) of location
-        print(moves, "/45 location movements remaining", sep="")
+        print(moves, "/", game.MAX_MOVES, " ", "location movements remaining", sep="")
         print("You are at ", location.name, " (", location.id_num, ")", sep="")
         if location.visited:
             if location.action_completed:
@@ -393,7 +394,7 @@ if __name__ == "__main__":
 
         print("\n================\n")
 
-    if moves >= 45:
+    if moves >= game.MAX_MOVES:
         print("You have exceeded the maximum amount of moves.",
               "You were running around too much and ran out of time.",
               "Unfortunately, you recieved a 0 on your project.",
