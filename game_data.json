@@ -168,19 +168,19 @@
     {
       "name": "usb drive",
       "description": "Your project's USB drive containing the only copy of your game.",
-      "target_points": 15,
+      "target_points": 20,
       "weight": 32.5
     },
     {
       "name": "laptop charger",
       "description": "Oh dear, your laptop battery is low. Use the charger to power it back up.",
-      "target_points": 15,
+      "target_points": 20,
       "weight": 200.0
     },
     {
       "name": "lucky mug",
       "description": "A shiny blue UofT mug and your only prized possession.",
-      "target_points": 15,
+      "target_points": 20,
       "weight": 300.0
     },
     {
@@ -198,7 +198,7 @@
     {
       "name": "toonie",
       "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "target_points": 5,
+      "target_points": 0,
       "weight": 6.92
     },
     {
@@ -228,13 +228,13 @@
     {
       "name": "gum",
       "description": "A piece of chewed gum. Ewww... but it could be useful with a ruler.",
-      "target_points": 5,
+      "target_points": 0,
       "weight": 2.4
     },
     {
       "name": "ruler",
       "description": "A 30cm ruler. It seems like it would work well to insert into small gaps.",
-      "target_points": 5,
+      "target_points": 0,
       "weight": 48.0
     },
     {
