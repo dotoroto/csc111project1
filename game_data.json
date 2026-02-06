@@ -26,7 +26,7 @@
         "go south": 3,
         "interact": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": ["lucky mug"]
     },
@@ -41,7 +41,7 @@
         "go south": 4,
         "open locker": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "tcard",
       "interaction": ["laptop charger"]
     },
@@ -56,7 +56,7 @@
         "go south": 5,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["toonie"], ["loonie", "quarter"]]
     },
@@ -72,7 +72,7 @@
         "go north": 4,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["chocolate bar"], ["janitor closet key"]]
     },
@@ -86,7 +86,7 @@
         "go east": 5,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["loonie"], ["bubble tea"]]
     },
@@ -100,7 +100,7 @@
         "go west": 5,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["janitor closet key"], ["cipher message item"]]
     },
@@ -115,7 +115,7 @@
         "go west": 2,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["quarter"], ["chocolate bar"]]
     },
@@ -157,7 +157,7 @@
         "go north": 10,
         "go south": 12
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": null
     },
@@ -171,7 +171,7 @@
         "go north": 11,
         "trade": -1
       },
-      "items": [""],
+      "items": [],
       "enter_requirement": "",
       "interaction": [["gum", "ruler"], ["usb drive"]]
     }
