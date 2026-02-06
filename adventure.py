@@ -297,7 +297,7 @@ if __name__ == "__main__":
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        print(location.id_num, "You are at", location.name)
+        print("You are at ", location.name, " (", location.id_num, ")", sep="")
         if location.visited:
             print(location.brief_description)
         else:
